@@ -1,0 +1,32 @@
+rotate 4
+weekly
+create
+compress
+delaycompress
+
+\${buildout:directory}/var/log/zeo.log {
+    postrotate
+        \${buildout:bin-directory}/zeo logreopen
+    endscript
+}
+
+\${buildout:directory}/var/log/instance.log ${buildout:directory}/var/log/instance-Z2.log {
+    sharedscripts
+    postrotate
+        /bin/kill -USR2 \$(cat ${buildout:directory}/var/instance.pid)
+    endscript
+}
+
+\${buildout:directory}/var/log/instance1.log ${buildout:directory}/var/log/instance1-Z2.log {
+    sharedscripts
+    postrotate
+        /bin/kill -USR2 \$(cat ${buildout:directory}/var/instance1.pid)
+    endscript
+}
+
+\${buildout:directory}/var/log/instance2.log ${buildout:directory}/var/log/instance2-Z2.log {
+    sharedscripts
+    postrotate
+        /bin/kill -USR2 \$(cat ${buildout:directory}/var/instance2.pid)
+    endscript
+}
