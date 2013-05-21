@@ -1,0 +1,43 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone\n"
+"POT-Creation-Date: 2006-12-15 23:20+0000\n"
+"PO-Revision-Date: 2006-12-16 02:50-0200\n"
+"Last-Translator: Dorneles Treméa <dorneles@x3ng.com.br>\n"
+"Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Code: pt-br\n"
+"Language-Name: Português do Brasil\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#. Default: "First item"
+#: plone.batching/plone/batching/batchnavigation_bootstrap.pt:18
+msgid "batch_first_item"
+msgstr "Primeiro item"
+
+#. Default: "Last item"
+#: plone.batching/plone/batching/batchnavigation_bootstrap.pt:78
+msgid "batch_last_item"
+msgstr "Último item"
+
+#. Default: "Next ${number} items"
+#: plone.batching/plone/batching/batchnavigation.pt:28
+#: plone.batching/plone/batching/batchnavigation_bootstrap.pt:67
+msgid "batch_next_x_items"
+msgstr "Próximos ${number} itens"
+
+#. Default: "Previous ${number} items"
+#: plone.batching/plone/batching/batchnavigation.pt:16
+#: plone.batching/plone/batching/batchnavigation_bootstrap.pt:30
+msgid "batch_previous_x_items"
+msgstr "${number} itens anteriores"
+
+
+#. Default: "Number of items that will show up in one batch."
+#: plone.app.contenttypes/plone/app/contenttypes/interfaces.py:50
+msgid "Number of items that will show up in one batch."
+msgid "Número de itens que serão exibidos em um lote."
