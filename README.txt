@@ -1,5 +1,5 @@
-=======================
-Portal Modelo
-=======================
+==============================================
+ Identidade Digital de Governo
+==============================================
 
-Este é o buildout do Portal Modelo.
+Leia a documentação deste buildout em: http://identidade-digital-de-governo-plone.rtfd.org
