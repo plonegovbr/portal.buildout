@@ -13,6 +13,8 @@ Download
 
 Faça o download da VM a partir do endereço:
 
+	* http://downloads.plone.org.br/identidade-ubuntu-1.1a.ova
+
 
 Importação
 -------------
