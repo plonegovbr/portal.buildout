@@ -13,3 +13,4 @@ parts/
 products/
 src/
 var/
+.python-version
