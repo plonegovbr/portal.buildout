@@ -25,7 +25,7 @@ Para evitar conflitos com o Python utilizado pelo sistema operacional, cria-se
 um virtualenv apartado do restante do sistema.
 ::
 
-    cd /opt/portal.buildout
+    cd ~/portal.buildout
     virtualenv py27
     source py27/bin/activate
 
