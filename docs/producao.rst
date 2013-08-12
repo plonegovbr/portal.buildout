@@ -46,6 +46,11 @@ um virtualenv apartado do restante do sistema.
     cd /opt/portal.buildout
     virtualenv py27
     source py27/bin/activate
+    
+Apesar das instruções de instalação de bibliotecas e execução do virtualenv
+sobre o python da máquina para menor complexidade do procedimento, é
+recomendado o uso de uma nova instalação de Python 2.7, efetuando sobre ela
+esses procedimentos de instalação de bibliotecas e virtualenv.
 
 Criamos um novo arquivo de configuração *buildout.cfg*, que extende o 
 **production.cfg** para definir variáveis deste ambiente::
