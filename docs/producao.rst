@@ -47,10 +47,11 @@ um virtualenv apartado do restante do sistema.
     virtualenv py27
     source py27/bin/activate
     
-Apesar das instruções de instalação de bibliotecas e execução do virtualenv
-sobre o python da máquina para menor complexidade do procedimento, é
-recomendado o uso de uma nova instalação de Python 2.7, efetuando sobre ela
-esses procedimentos de instalação de bibliotecas e virtualenv.
+.. note :: Apesar das instruções de instalação de bibliotecas e execução
+           do virtualenv sobre o python da máquina para menor complexidade
+           do procedimento, é recomendado o uso de uma nova instalação de
+           Python 2.7, efetuando sobre ela esses procedimentos de
+           instalação de bibliotecas e virtualenv.
 
 Criamos um novo arquivo de configuração *buildout.cfg*, que extende o 
 **production.cfg** para definir variáveis deste ambiente::
@@ -77,6 +78,40 @@ produção -- **buildout.cfg**::
 
     python bootstrap.py -c buildout.cfg
     ./bin/buildout -c buildout.cfg
+
+Instalação no CentOS
+-----------------------
+
+Para instalação do Portal Modelo no CentOS 5, devido a diferenças de versões
+das bibliotecas libxml e libxslt, é recomendada a instalação das versões
+corretas através do próprio buildout.
+
+.. note :: Essas instruções só devem ser seguidas para o caso de
+           instalação em CentOS 5.
+
+No **buildout.cfg** incluir o passo **[lxml]**: 
+::
+    [buildout]
+    extends =
+        development.cfg
+
+    [lxml]
+    recipe = z3c.recipe.staticlxml
+    egg = lxml
+    libxml2-url = xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz
+    libxslt-url = xmlsoft.org/libxml2/libxslt-1.1.26.tar.gz
+    static-build = true
+    force = false
+
+No **buildout.d/base.cfg** incluir o passo **[lxml]** definido acima, antes
+dos já existentes: 
+::
+    parts =
+        lxml
+        instance
+        mkdir-chameleon
+        zopepy
+
 
 Inicialização e controle
 ==========================
