@@ -82,7 +82,7 @@ produção -- **buildout.cfg**::
 Instalação no CentOS
 -----------------------
 
-Para instalação do Portal Modelo no CentOS 5, devido a diferenças de versões
+Para instalação do Portal Padrão no CentOS 5, devido a diferenças de versões
 das bibliotecas libxml e libxslt, é recomendada a instalação das versões
 corretas através do próprio buildout.
 
