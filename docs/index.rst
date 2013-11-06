@@ -25,6 +25,15 @@ Conteúdo
 
 
 *********************
+Manuais
+*********************
+
+Acesse os demais manuais do Portal Padrão em `http://portalpadrao.plone.org.br/manuais`_.
+
+.. _http://portalpadrao.plone.org.br/manuais: http://portalpadrao.plone.org.br/manuais
+
+
+*********************
 Índices
 *********************
 
