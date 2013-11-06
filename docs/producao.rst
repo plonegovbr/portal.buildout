@@ -91,6 +91,7 @@ corretas através do próprio buildout.
 
 No **buildout.cfg** incluir o passo **[lxml]**: 
 ::
+
     [buildout]
     extends =
         development.cfg
@@ -106,6 +107,7 @@ No **buildout.cfg** incluir o passo **[lxml]**:
 No **buildout.d/base.cfg** incluir o passo **[lxml]** definido acima, antes
 dos já existentes: 
 ::
+
     parts =
         lxml
         instance
