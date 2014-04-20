@@ -6,11 +6,11 @@ source_suffix = '.rst'
 source_encoding = 'utf-8'
 master_doc = 'index'
 
-project = u'Identidade Digital de Governo'
-copyright = u'2013, PloneGov.BR'
+project = u'Portal Padrão'
+copyright = u'2014, PloneGov.BR'
 
-version = '20130422'
-release = '20130422.01'
+version = '20140420'
+release = '20140420.02'
 
 language = 'pt_BR'
 
