@@ -2,7 +2,7 @@
 Portal Padrão para Governo
 #######################################
 
-Este é documentação do buildout do Portal Padrão em Plone, a implementação modelo do projeto Identidade Digital de Governo.
+Esta é uma documentação técnica do Portal Padrão em Plone, a implementação modelo do projeto Identidade Digital de Governo.
 
 Este buildout está hospedado no :term:`Github` na organização 
 :term:`PloneGov.BR`
@@ -20,6 +20,7 @@ Conteúdo
    producao
    vm/index
    problemas
+   contribuicoes
    referencias
 
 
