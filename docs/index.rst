@@ -28,9 +28,9 @@ Conteúdo
 Manuais
 *********************
 
-Acesse os demais manuais do Portal Padrão em `http://portalpadrao.plone.org.br/manuais`_.
+Acesse os demais manuais do Portal Padrão em `http://www.secom.gov.br/orientacoes-gerais/comunicacao-digital`_.
 
-.. _http://portalpadrao.plone.org.br/manuais: http://portalpadrao.plone.org.br/manuais
+.. _http://www.secom.gov.br/orientacoes-gerais/comunicacao-digital: http://www.secom.gov.br/orientacoes-gerais/comunicacao-digital
 
 
 *********************
