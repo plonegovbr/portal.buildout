@@ -1,5 +1,5 @@
 #######################################
-Portal Institucional Padrãoo
+Portal Institucional Padrão
 #######################################
 
 Este é o Manual Técnico de Instalação do Portal Institucional Padrão para o CMS 
