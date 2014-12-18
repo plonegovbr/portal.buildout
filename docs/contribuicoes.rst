@@ -64,27 +64,27 @@ dois estilos de quebra de linha abaixo para blocos de código:
            "an_exceptionally_long_string_of_characters",
        ]
 
- * Arguments on first line, directly after the opening parenthesis are
-   forbidden when breaking lines.
- * The last argument line needs to have a trailing comma (to be nice to the
-   next developer coming in to add something as an argument and minimize VCS
-   diffs in these cases).
- * The closing parenthesis or bracket needs to have the same indentation level
-   as the first line.
- * Each line can only contain a single argument.
- * The same style applies to dicts, lists, return calls, etc.
+ * Logo após o parêntese ou chave de abertura é proibido colocar argumentos,
+   quando houver quebra de linha vislumbrando um argumento por linha.
+ * A última linha de argumento precisa ter uma vírgula à direita (para
+   facilitar o acréscimo de uma nova linha de argumento por um próximo
+   desenvolvedor).
+ * O parêntese de fechamento (ou "bracket") precisa ter a mesma identação da
+   primeira linha.
+ * Cada linha deve conter um único argumento.
+ * O mesmo estilo se aplica à dicionários, listas, return calls, etc.
 
-This package follows all rules above, `check out the source
-<https://github.com/plone/plone.api/tree/master/src/plone/api>`_ to see them
-in action.
+Este pacote segue todas as regras acima, `verifique na fonte
+<https://github.com/plone/plone.api/tree/master/src/plone/api>`_ para vê-los
+em ação.
 
 
 Indentação
 ==========
 
-For Python files, we stick with the `PEP 8 recommondation
-<http://www.python.org/dev/peps/pep-0008/#indentation>`_: Use 4 spaces per
-indentation level.
+Para arquivos Python, nós seguimos as `recomendações da PEP 8
+<http://www.python.org/dev/peps/pep-0008/#indentation>`_: Use 4 espaços por
+cada recuo de indentação.
 
 For ZCML and XML (GenericSetup) files, we recommend the `Zope Toolkit's coding
 style on ZCML <http://docs.zope.org/zopetoolkit/codingstyle/zcml-style.html>`_
