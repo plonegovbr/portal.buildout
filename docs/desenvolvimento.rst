@@ -8,7 +8,7 @@ Instalando o código do Portal
 Usando repositório
 ---------------------
 
-Inicialmente é feito o clone deste buildout:
+Inicialmente é feito o clone deste *buildout*:
 ::
 
     cd ~
@@ -16,13 +16,13 @@ Inicialmente é feito o clone deste buildout:
 
 
 .. note :: Caso o comando acima apresente problemas -- provavelmente devido ao
-           bloqueio da porta de ssh (22) na sua rede interna -- altere 
+           bloqueio da porta de SSH (22) na sua rede interna -- altere 
            **git@github.com:** por **https://github.com/**.
 
 
 
 Para evitar conflitos com o Python utilizado pelo sistema operacional, cria-se
-um virtualenv apartado do restante do sistema.
+um virtualenv apartado do restante do sistema:
 ::
 
     cd ~/portal.buildout
@@ -30,12 +30,12 @@ um virtualenv apartado do restante do sistema.
     source py27/bin/activate
     
 .. note :: Apesar das instruções de instalação de bibliotecas e execução
-           do virtualenv sobre o python da máquina para menor complexidade
+           do virtualenv sobre o python da máquina, para menor complexidade
            do procedimento, é recomendado o uso de uma nova instalação de
            Python 2.7, efetuando sobre ela esses procedimentos de
            instalação de bibliotecas e virtualenv.
 
-Criamos um novo arquivo de configuração *buildout.cfg*, que extende o 
+Criamos um novo arquivo de configuração *buildout.cfg*, que estende o 
 **development.cfg** para definir variáveis deste ambiente::
 
     [buildout]
@@ -49,11 +49,11 @@ Criamos um novo arquivo de configuração *buildout.cfg*, que extende o
     simplesconsultoria = https://github.com/simplesconsultoria
 
 .. note :: Na configuração garantimos que todos os códigos hospedados no
-           Github sejam baixados através de https e não de ssh. (Esta 
-           alteração não é mandatória, mas é comum em redes que possuam
-           um firewall impedindo acesso direto à Internet.)
+           :term:`GitHub` sejam baixados através de HTTPS e não de SSH -- esta 
+           alteração não é obrigatória, mas é comum em redes que possuam
+           um *firewall* impedindo acesso direto à Internet.
 
-E finalmente executa-se o buildout com as configurações para ambiente de
+E finalmente executa-se o *buildout* com as configurações para ambiente de
 produção -- **buildout.cfg**::
 
     python bootstrap.py -c buildout.cfg
@@ -64,7 +64,7 @@ Instalação no CentOS
 
 Para instalação do Portal Padrão no CentOS 5, devido a diferenças de versões
 das bibliotecas libxml e libxslt, é recomendada a instalação das versões
-corretas através do próprio buildout.
+corretas através do próprio *buildout*.
 
 .. note :: Essas instruções só devem ser seguidas para o caso de
            instalação em CentOS 5.
@@ -101,22 +101,23 @@ A configuração presente no arquivo **development.cfg** utiliza apenas uma
 instância -- sem configurações de :term:`ZEO` -- e ela, ao ser iniciada, ouvirá na
 porta **8080** da sua máquina local.
 
-Iniciando em modo foreground
+Iniciando em modo *foreground*
 ------------------------------------
 
-Para inicia a instância execute, na linha de comando::
+Para iniciar a instância em modo *foreground*, execute na linha de comando:
+::
 
     cd ~/portal.buildout
     ./bin/instance fg
 
-O ambiente estará pronto para ser utilizado quando você vir a seguinte
+O ambiente estará pronto para ser utilizado quando você visualizar a seguinte
 mensagem na sua janela de terminal: **INFO Zope Ready to handle requests**.
 
 .. note :: Esta mensagem, será precedida pela data e hora em que o ambiente
            ficou ativo, ex: **2013-05-22 11:38:39 INFO Zope Ready to handle
            requests**
 
-Caso você feche a janela do terminal, o processo não mais estará ativo.
+Se você fechar a janela do terminal, o processo não mais estará ativo.
 
 
 Iniciando em modo serviço (daemon)
@@ -130,8 +131,9 @@ a janela de terminal, execute os seguintes comandos::
 
 Este comando retornará uma mensagem como **daemon process started, pid=32819**,
 porém isto não significa que o ambiente está pronto. Para validar se o ambiente
-está pronto utilize o comando :command:`tail` para listar as últimas linhas do log::
+está pronto, utilize o comando :command:`tail` para listar as últimas linhas do log::
 
     tail -f var/log/instance.log 
 
-Caso você feche a janela do terminal, o processo continuará ativo.
+Se você fechar a janela do terminal, o processo continuará ativo.
+

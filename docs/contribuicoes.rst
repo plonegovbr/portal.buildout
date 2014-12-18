@@ -36,7 +36,7 @@ Quebras de linha
 Baseado em códigos (Pyramid, Requests, etc) que amamos seguir, nós aceitamos os
 dois estilos de quebra de linha abaixo para blocos de código:
 
-1. Quebre a linha seguinte adicionando identação ao bloco.
+1. Quebre a linha seguinte adicionando indentação ao bloco.
 
    .. sourcecode:: python
 

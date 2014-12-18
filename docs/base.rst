@@ -23,8 +23,8 @@ Preparação do ambiente
 Acesso internet
 ----------------------
 
-Tanto para o ambiente de desenvolvimento como o de produção é necessário
-que o computador onde será realizada a instalação deve ter acesso à Internet.
+Tanto para o ambiente de desenvolvimento como o de produção, é necessário
+que o computador onde será realizada a instalação tenha acesso à Internet.
 
 Teste o acesso internet utilizando a ferramenta **wget** no terminal do Linux:
 ::
@@ -39,8 +39,8 @@ Teste o acesso internet utilizando a ferramenta **wget** no terminal do Linux:
 Configurando proxy
 ~~~~~~~~~~~~~~~~~~~~
 
-Caso, para acesso à internet, seja necessário configurar servidores de Proxy,
-no terminal digite:
+Para acesso à internet, caso seja necessário configurar servidores de Proxy,
+digite no terminal:
 ::
 
 	export http_proxy=http://<endereco>:<porta>
