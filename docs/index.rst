@@ -6,7 +6,7 @@ Este é o Manual Técnico de Instalação do Portal Institucional Padrão para o
 Plone, um dos elementos modelo do projeto Identidade Padrão de Comunicação Digital 
 do Poder Executivo Federal, projeto também conhecido como Identidade Digital de Governo (IDG).
 
-O *buildout* utilizado nesta documentação está no :term:`Github` da organização 
+O *buildout* utilizado nesta documentação está no :term:`GitHub` da organização 
 :term:`PloneGov-BR`. Este manual serve como referência para os órgãos, por isso 
 trás orientações e boas práticas para instalação e manutenção segura de seu ambiente.
 
