@@ -3,9 +3,8 @@ Portal Institucional Padrão
 #######################################
 
 Este é o Manual Técnico de Instalação do Portal Institucional Padrão para o CMS 
-Plone, também conhecido como Identidade Digital de Governo (IDG), um dos 
-elementos modelo do projeto Identidade Padrão de Comunicação Digital do Poder 
-Executivo Federal.
+Plone, um dos elementos modelo do projeto Identidade Padrão de Comunicação Digital 
+do Poder Executivo Federal, também conhecido como Identidade Digital de Governo (IDG).
 
 O *buildout* utilizado nesta documentação está no :term:`Github` da organização 
 :term:`PloneGov-BR`. Este manual serve como referência para os órgãos, por isso 
