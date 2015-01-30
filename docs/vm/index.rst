@@ -5,7 +5,7 @@ Máquina Virtual
 Disponibilizamos uma máquina virtual (*virtual machine* ou VM), no formato OVF, 
 compatível com `VirtualBox`_.
 
-Esta máquina virtual é apenas para teste e não está com a última versão do Portal INstitucional Padrão.
+Esta máquina virtual é apenas para teste e não está com a última versão do Portal Institucional Padrão.
 
 Antes de seguir, verifique se o VirtualBox já está instalado no seu computador.
 
