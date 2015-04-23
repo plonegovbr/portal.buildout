@@ -2,6 +2,7 @@
 *.mo
 *.pyc
 *~
+.*project
 .installed.cfg
 .mr.developer.cfg
 /buildout.cfg
