@@ -59,8 +59,16 @@ Primeiramente atualizar os pacotes existentes::
 
     aptitude update && aptitude upgrade
 
+Depois instalar os pacotes base (Ubuntu 12.10/Debian 7 Wheezy)::
 
-Depois instalar os pacotes base::
+    sudo aptitude install -y build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev zlib1g-dev python-setuptools python-dev python-virtualenv libjpeg62-dev libreadline-gplv2-dev python-imaging wv poppler-utils git
 
-    sudo aptitude install build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev zlib1g-dev python-setuptools python-dev python-virtualenv libjpeg62-dev libreadline-gplv2-dev python-imaging wv poppler-utils git -y
+No Debian 8 (Jessie), instalar::
 
+    sudo apt-get install -y build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev zlib1g-dev python-setuptools python-dev python-virtualenv libjpeg62-turbo-dev libreadline-gplv2-dev python-imaging python-pip wv poppler-utils git
+
+No CentOS 7::
+
+    yum install -y epel-release
+    yum update -y
+    yum install -y gcc gcc-g++ make tar bzip2 gzip openssl-devel libxml2-devel libxml2 libxslt-devel bzip2-libs zlib-devel python-setuptools python-devel python-virtualenv libjpeg-turbo-devel readline-devel python-imaging python-pip wv poppler-utils git
