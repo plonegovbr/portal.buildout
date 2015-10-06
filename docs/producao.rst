@@ -2,14 +2,17 @@
 Ambiente de produção
 =======================================
 
-Quando se trata de um portal em produção, não há como definir uma instalação padrão, 
-por isso reunimos neste manual técnico alguns pontos importantes de atenção na 
-configuração e controle, geralmente utilizados em ambientes com o CMS Plone. 
+Quando se trata de um portal em produção, não há como definir uma instalação 
+padrão, por isso reunimos neste manual técnico alguns pontos importantes de 
+atenção na configuração e controle, geralmente utilizados em ambientes com o 
+CMS Plone. 
 
-Lembramos que é preciso ter um perfil mais avançado e capacitado, considerando as 
-necessidades específicas de cada site e padrões do ambiente computacional do órgão.
+Lembramos que é preciso ter um perfil mais avançado e capacitado, 
+considerando as necessidades específicas de cada site e padrões do ambiente 
+computacional do órgão.
 
-É importante internalizar conhecimento com sua equipe e padronizar algumas partes da instalação para agilizar a montagem e manutenção dos ambientes.
+É importante internalizar conhecimento com sua equipe e padronizar algumas 
+partes da instalação para agilizar a montagem e manutenção dos ambientes.
 
 
 Criar Usuário 
@@ -18,9 +21,8 @@ Criar Usuário
 Vamos criar um usuário para rodarmos o Plone:
 ::
 
-    adduser --system --shell /bin/bash plone
-    addgroup plone
-    adduser plone plone
+    useradd --system --shell /bin/bash --comment 'Plone Administrator' \ 
+    --user-group -m --home-dir /opt/plone plone
 
 A partir de agora usaremos o usuário **plone**:
 ::
@@ -37,24 +39,22 @@ Usando repositório
 Inicialmente é feito o clone deste *buildout*:
 ::
 
-    cd /opt/
-    git clone git@github.com:plonegovbr/portal.buildout.git portal.buildout
+    git clone https://github.com/plonegovbr/portal.buildout.git portal.buildout
 
 
 .. note :: Caso o comando acima apresente problemas -- provavelmente devido ao
-           bloqueio da porta de SSH (22) na sua rede interna -- altere 
-           **git@github.com** por **https://github.com/**.
+           bloqueio da porta de HTTPS (443) na sua rede interna -- tente: 
+           git clone git@github.com:plonegovbr/portal.buildout.git portal.buildout.
 
 
-Ajuste as permissões::
-
-	chown -R plone:plone portal.buildout
+Virtualenv
+---------------------
 
 Para evitar conflitos com o Python utilizado pelo sistema operacional, cria-se
 um virtualenv apartado do restante do sistema:
 ::
 
-    cd /opt/portal.buildout
+    cd $HOME/portal.buildout
     virtualenv py27
     source py27/bin/activate
     
@@ -63,6 +63,10 @@ um virtualenv apartado do restante do sistema:
            do procedimento, é recomendado o uso de uma nova instalação de
            Python 2.7, efetuando sobre ela esses procedimentos de
            instalação de bibliotecas e virtualenv.
+
+
+Buildout
+---------------------
 
 Criamos um novo arquivo de configuração *buildout.cfg*, que estende o 
 **production.cfg** para definir variáveis deste ambiente:
@@ -73,17 +77,32 @@ Criamos um novo arquivo de configuração *buildout.cfg*, que estende o
         production.cfg
 
     [hosts]
-    instance = 172.30.20.12
+    supervisor = 127.0.0.1
+    haproxy = 0.0.0.0
+    instance = 127.0.0.1
+    zeoserver = 127.0.0.1
 
     [ports]
-    instance = 9080
+    supervisor = 9001
+    haproxy = 8000
+    instance = 8080
+    zeoserver = 8100
 
     [users]
+    zope = admin
     os = plone
 
+    [supervisor-settings]
+    user = admin
+    password = 4dm1n${users:zope}
+
 .. note :: Na configuração acima definimos o endereço do servidor como
-           *172.30.20.12*, a porta base como *9080* e o usuário do sistema
-           como **plone**.
+           *0.0.0.0* (em todas as interfaces/ip), a porta base como *8000* 
+           e o usuário do sistema como **plone**. Modifique como desejar.
+           Observe que os serviços definidos como 127.0.0.1 (loopback) só são 
+           acessíveis internamente e não na rede interna (por outros hosts).
+           Conforme buildout.cfg acima, apenas o HAProxy estará acessível na
+           rede interna.
 
 E finalmente executa-se o *buildout* com as configurações para ambiente de
 produção -- **buildout.cfg**:
@@ -127,6 +146,15 @@ dos já existentes:
         mkdir-chameleon
         zopepy
 
+No CentOS 7, é necessário liberar a porta 8000 no firewall para torná-la 
+acessível na rede interna, conforme (como root):
+::
+    
+    firewall-cmd --permanent --add-port=8000/tcp && firewall-cmd --reload
+
+.. note :: Modifique a porta 8000 por outra, caso tenha alterado o 
+           buildout.cfg
+
 
 Inicialização e controle
 ==========================
@@ -148,7 +176,7 @@ o controlador dos serviços e interface padrão para o administrador.
 A inicialização do :term:`Supervisor` é feita ao executar:
 ::
 
-    cd /opt/portal.buildout/
+    cd $HOME/portal.buildout/
     ./bin/supervisord
 
 Para avaliarmos se o ambiente foi iniciado corretamente, utilizamos o
@@ -205,12 +233,12 @@ No ambiente do portal o ZODB está configurado para que conteúdos e metadados,
 armazenados em um FileStorage, utilizem o arquivo:
 ::
 
-    /opt/portal.buildout/var/filestorage/Data.fs
+    /opt/plone/portal.buildout/var/filestorage/Data.fs
 
 Enquanto conteúdos de arquivos e imagens sejam armazenados como blobs, na pasta:
 ::
 
-    /opt/portal.buildout/var/blobstorage/
+    /opt/plone/portal.buildout/var/blobstorage/
 
 O *backup* dos dados pode ser feito, sem parar o ambiente, copiando-se o arquivo
 Data.fs e o conteúdo da pasta de blobstorage para algum outro local.
@@ -222,13 +250,13 @@ Isto é feito com o *script* :command:`bin/backup` que, pelos valores padrões,
 armazenará os dados na pasta:
 ::
 
-    /opt/portal.buildout/var/backup/
+    /opt/plone/portal.buildout/var/backup/
 
 
 Além disto, teremos o *backup* dos arquivos blob na pasta:
 ::
 
-    /opt/portal.buildout/var/blobstoragebackups
+    /opt/plone/portal.buildout/var/blobstoragebackups
 
 Na instalação realizada no portal, conforme documentado no **producao.cfg**,
 foi inserida uma entrada no :term:`crontab` do usuário **root** para a
@@ -236,7 +264,7 @@ realização diária deste *backup* de base de dados:
 ::
 
     crontab -l -u plone
-    0 3 * * 0-6 /opt/portal.buildout/bin/backup
+    0 3 * * 0-6 /opt/plone/portal.buildout/bin/backup
 
 
 Neste cenário, para um *backup* incremental do FileStorage e completo do blobstorage,
@@ -244,8 +272,8 @@ deve-se copiar apenas estas pastas para outro local no disco. Isto pode ser
 realizado com os comandos a seguir:
 ::
 
-    rsync -auv /opt/portal.buildout/var/backup/ /opt/bkp/filestorage/
-    rsync -auv /opt/portal.buildout/var/blobstorage/ /opt/bkp/blobstorage/
+    rsync -auv /opt/plone/portal.buildout/var/backup/ /opt/plone/bkp/filestorage/
+    rsync -auv /opt/plone/portal.buildout/var/blobstorage/ /opt/plone/bkp/blobstorage/
 
 .. warning:: Esta configuração não foi realizada no ambiente de produção.
 
@@ -269,7 +297,7 @@ um *script* específico para a realização da purga do ZODB. Esse *script* é u
 da maneira a seguir:
 ::
 
-    cd /opt/portal.buildout/
+    cd /opt/plone/portal.buildout/
     ./bin/zeopack -p 8100 -d 1
 
 
@@ -283,7 +311,7 @@ realização semanal da purga da base de dados -- e imediado *backup*:
 ::
 
     crontab -l -u plone
-    0 3 * * 7  /opt/portal.buildout/bin/zeopack -p 8100 -d 1 && /opt/portal.buildout/bin/backup
+    0 3 * * 7  /opt/plone/portal.buildout/bin/zeopack -p 8100 -d 1 && /opt/plone/portal.buildout/bin/backup
 
 Logrotate
 --------------------------
@@ -317,10 +345,10 @@ o rotacionamento dos logs:
 ::
 
     crontab -l -u plone
-    0 3 * * 7  /usr/sbin/logrotate --state /opt/portal.buildout/var/logrotate.status /opt/portal.buildout/etc/logrotate.conf
+    0 3 * * 7  /usr/sbin/logrotate --state /opt/plone/portal.buildout/var/logrotate.status /opt/plone/portal.buildout/etc/logrotate.conf
 
 .. note:: Conforme o indicado acima, o arquivo de configuração do logrotate se
-          encontra em: */opt/portal.buildout/etc/logrotate.conf*
+          encontra em: */opt/plone/portal.buildout/etc/logrotate.conf*
 
 
 .. [#] Ou seja, transações com as alterações aos conteúdos existentes são
