@@ -18,11 +18,12 @@ partes da instalação para agilizar a montagem e manutenção dos ambientes.
 Criar Usuário 
 ===============
 
-Vamos criar um usuário para rodarmos o Plone:
+Vamos criar um usuário para rodarmos o Plone e criar uma senha para ele:
 ::
 
-    useradd --system --shell /bin/bash --comment 'Plone Administrator' \ 
+    sudo useradd --system --shell /bin/bash --comment 'Plone Administrator' \ 
     --user-group -m --home-dir /opt/plone plone
+    sudo passwd plone
 
 A partir de agora usaremos o usuário **plone**:
 ::
