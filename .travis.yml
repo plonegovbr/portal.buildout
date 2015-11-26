@@ -1,0 +1,23 @@
+language: python
+python: 2.7
+sudo: false
+cache:
+  directories:
+  - eggs
+  - parts/node
+matrix:
+  fast_finish: true
+install:
+- ln -s development.cfg buildout.cfg
+- python bootstrap.py --setuptools-version=0.6c11 --buildout-version=1.7.1
+- bin/buildout annotate
+- bin/buildout -Nq
+before_script:
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- firefox -v
+script:
+- bin/test
+- bin/test-dependencies
+notifications:
+  irc: irc.freenode.org#plonegovbr
