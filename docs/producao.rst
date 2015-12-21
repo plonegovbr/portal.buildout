@@ -42,6 +42,11 @@ Inicialmente é feito o clone deste *buildout*:
 
     git clone https://github.com/plonegovbr/portal.buildout.git portal.buildout
 
+É recomendado que se utilize uma versão estável do portal.buildout para tanto utilize a tag mais atual. Realize:
+::
+    
+    cd $HOME/portal.buildout
+    git checkout tags/1.1.3.1
 
 .. note :: Caso o comando acima apresente problemas -- provavelmente devido ao
            bloqueio da porta de HTTPS (443) na sua rede interna -- tente: 
