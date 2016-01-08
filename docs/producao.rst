@@ -42,11 +42,12 @@ Inicialmente é feito o clone deste *buildout*:
 
     git clone https://github.com/plonegovbr/portal.buildout.git portal.buildout
 
-É recomendado que se utilize uma versão estável do portal.buildout para tanto utilize a tag mais atual. Realize:
+É recomendado que se utilize uma versão estável: portal.buildout possui releases correspondentes às versões de ``brasil.gov.portal`` representados como tags no `repositório <https://github.com/plonegovbr/portal.buildout/releases>`_. Recomendamos que se utilize sempre a última tag disponibilizada. Realize:
 ::
-    
     cd $HOME/portal.buildout
-    git checkout tags/1.1.3.1
+    # X.X.X.X é a última tag em releases, presente em
+    # https://github.com/plonegovbr/portal.buildout/releases
+    git checkout tags/X.X.X.X
 
 .. note :: Caso o comando acima apresente problemas -- provavelmente devido ao
            bloqueio da porta de HTTPS (443) na sua rede interna -- tente: 
