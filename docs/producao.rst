@@ -2,26 +2,26 @@
 Ambiente de produção
 =======================================
 
-Quando se trata de um portal em produção, não há como definir uma instalação 
-padrão, por isso reunimos neste manual técnico alguns pontos importantes de 
-atenção na configuração e controle, geralmente utilizados em ambientes com o 
-CMS Plone. 
+Quando se trata de um portal em produção, não há como definir uma instalação
+padrão, por isso reunimos neste manual técnico alguns pontos importantes de
+atenção na configuração e controle, geralmente utilizados em ambientes com o
+CMS Plone.
 
-Lembramos que é preciso ter um perfil mais avançado e capacitado, 
-considerando as necessidades específicas de cada site e padrões do ambiente 
+Lembramos que é preciso ter um perfil mais avançado e capacitado,
+considerando as necessidades específicas de cada site e padrões do ambiente
 computacional do órgão.
 
-É importante internalizar conhecimento com sua equipe e padronizar algumas 
+É importante internalizar conhecimento com sua equipe e padronizar algumas
 partes da instalação para agilizar a montagem e manutenção dos ambientes.
 
 
-Criar Usuário 
+Criar Usuário
 ===============
 
 Vamos criar um usuário para rodarmos o Plone e criar uma senha para ele:
 ::
 
-    sudo useradd --system --shell /bin/bash --comment 'Plone Administrator' \ 
+    sudo useradd --system --shell /bin/bash --comment 'Plone Administrator' \
     --user-group -m --home-dir /opt/plone plone
     sudo passwd plone
 
@@ -44,13 +44,15 @@ Inicialmente é feito o clone deste *buildout*:
 
 É recomendado que se utilize uma versão estável: portal.buildout possui releases correspondentes às versões de ``brasil.gov.portal`` representados como tags no `repositório <https://github.com/plonegovbr/portal.buildout/releases>`_. Recomendamos que se utilize sempre a última tag disponibilizada. Realize:
 ::
+
     cd $HOME/portal.buildout
     # X.X.X.X é a última tag em releases, presente em
     # https://github.com/plonegovbr/portal.buildout/releases
     git checkout tags/X.X.X.X
 
+
 .. note :: Caso o comando acima apresente problemas -- provavelmente devido ao
-           bloqueio da porta de HTTPS (443) na sua rede interna -- tente: 
+           bloqueio da porta de HTTPS (443) na sua rede interna -- tente:
            git clone git@github.com:plonegovbr/portal.buildout.git portal.buildout.
 
 
@@ -58,13 +60,29 @@ Virtualenv
 ---------------------
 
 Para evitar conflitos com o Python utilizado pelo sistema operacional, cria-se
-um virtualenv apartado do restante do sistema:
+um virtualenv apartado do restante do sistema. Execute:
+::
+
+    virtualenv --version
+
+Se a versão for menor que 1.10 (por exemplo na distribuição LTS do Ubuntu
+12.04), você precisa executar o virtualenv da seguinte forma:
+::
+
+    cd $HOME/portal.buildout
+    virtualenv --setuptools py27
+    source py27/bin/activate
+
+Se for maior ou igual a 1.10, o comando virtualenv não necessita do parâmetro
+*--setuptools* como indicado acima:
 ::
 
     cd $HOME/portal.buildout
     virtualenv py27
     source py27/bin/activate
-    
+
+Para entender a motivação dessa diferença, leia a `documentação <https://github.com/plonegovbr/portal.buildout/issues/41>`_.
+
 .. note :: Apesar das instruções de instalação de bibliotecas e execução
            do virtualenv sobre o python da máquina, para menor complexidade
            do procedimento, é recomendado o uso de uma nova instalação de
@@ -75,7 +93,7 @@ um virtualenv apartado do restante do sistema:
 Buildout
 ---------------------
 
-Criamos um novo arquivo de configuração *buildout.cfg*, que estende o 
+Criamos um novo arquivo de configuração *buildout.cfg*, que estende o
 **production.cfg** para definir variáveis deste ambiente:
 ::
 
@@ -104,9 +122,9 @@ Criamos um novo arquivo de configuração *buildout.cfg*, que estende o
     password = 4dm1n${users:zope}
 
 .. note :: Na configuração acima definimos o endereço do servidor como
-           *0.0.0.0* (em todas as interfaces/ip), a porta base como *8000* 
+           *0.0.0.0* (em todas as interfaces/ip), a porta base como *8000*
            e o usuário do sistema como **plone**. Modifique como desejar.
-           Observe que os serviços definidos como 127.0.0.1 (loopback) só são 
+           Observe que os serviços definidos como 127.0.0.1 (loopback) só são
            acessíveis internamente e não na rede interna (por outros hosts).
            Conforme buildout.cfg acima, apenas o HAProxy estará acessível na
            rede interna.
@@ -118,6 +136,12 @@ produção -- **buildout.cfg**:
     python bootstrap.py -c buildout.cfg
     ./bin/buildout -c buildout.cfg
 
+.. warning :: **Não execute** o seu buildout com sudo: dessa forma, seu
+              virtualenv será `ignorado <http://askubuntu.com/a/478001>`_ e
+              ocorrerá todo tipo de erro de dependências da sua instância com
+              as do Python do sistema.
+
+
 Instalação no CentOS
 -----------------------
 
@@ -128,7 +152,7 @@ corretas através do próprio *buildout*.
 .. note :: Essas instruções só devem ser seguidas para o caso de
            instalação em CentOS 5.
 
-No **buildout.cfg** incluir o passo **[lxml]**: 
+No **buildout.cfg** incluir o passo **[lxml]**:
 ::
 
     [buildout]
@@ -144,7 +168,7 @@ No **buildout.cfg** incluir o passo **[lxml]**:
     force = false
 
 No **buildout.d/base.cfg** incluir o passo **[lxml]** definido acima, antes
-dos já existentes: 
+dos já existentes:
 ::
 
     parts =
@@ -153,13 +177,13 @@ dos já existentes:
         mkdir-chameleon
         zopepy
 
-No CentOS 7, é necessário liberar a porta 8000 no firewall para torná-la 
+No CentOS 7, é necessário liberar a porta 8000 no firewall para torná-la
 acessível na rede interna, conforme (como root):
 ::
-    
+
     firewall-cmd --permanent --add-port=8000/tcp && firewall-cmd --reload
 
-.. note :: Modifique a porta 8000 por outra, caso tenha alterado o 
+.. note :: Modifique a porta 8000 por outra, caso tenha alterado o
            buildout.cfg
 
 
@@ -288,8 +312,8 @@ Purga da base de dados
 --------------------------
 
 A abordagem incremental do FileStorage é positiva pois permite a operação de desfazer
-(também conhecido como *UNDO*) e manutenção do histórico de cada uma das transações. 
-Por outro lado, esta característica implica que o arquivo de base de dados cresce 
+(também conhecido como *UNDO*) e manutenção do histórico de cada uma das transações.
+Por outro lado, esta característica implica que o arquivo de base de dados cresce
 rapidamente, conforme o número de transações realizadas.
 
 É recomendado, então, realizar a purga do histórico de transações da base de
