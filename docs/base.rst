@@ -55,8 +55,12 @@ digite no terminal:
 Pacotes do sistema
 ----------------------
 
-Primeiramente atualizar os pacotes existentes::
+Primeiramente atualizar os pacotes existentes:
 
+.. code-block:: bash
+
+    sudo su
+    apt-get install aptitude
     aptitude update && aptitude upgrade
 
 Depois instalar os pacotes base (Ubuntu 12.10/Debian 7 Wheezy)::
