@@ -62,6 +62,7 @@ Primeiramente atualizar os pacotes existentes:
     sudo su
     apt-get install aptitude
     aptitude update && aptitude upgrade
+    exit
 
 Depois instalar os pacotes base (Ubuntu 12.10/Debian 7 Wheezy)::
 
