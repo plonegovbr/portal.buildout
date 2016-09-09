@@ -53,6 +53,13 @@ Para entender a motivação dessa diferença, leia a `documentação <https://gi
            Python 2.7, efetuando sobre ela esses procedimentos de
            instalação de bibliotecas e virtualenv.
 
+Caso haja mais de uma versão de python instalada, pode ser necessário explicitar qual versão será usada no virtualenv:        
+::
+
+    cd $HOME/portal.buildout
+    virtualenv --python=python2.7 py27
+    source py27/bin/activate
+
 Criamos um novo arquivo de configuração *buildout.cfg*, que estende o
 **development.cfg** para definir variáveis deste ambiente
 ::
