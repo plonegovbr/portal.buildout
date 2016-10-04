@@ -19,6 +19,6 @@ before_script:
 - sh -e /etc/init.d/xvfb start
 - firefox -v
 script:
-- PLONE_CSRF_DISABLED=false bin/test
+- PLONE_CSRF_DISABLED=true bin/test
 notifications:
   irc: irc.freenode.org#plonegovbr
