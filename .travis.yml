@@ -17,14 +17,8 @@ before_install:
 - whoami
 - cp travis.cfg buildout.cfg
 install:
-# Útil para já parar o script caso
-# FIXME: Isso poderá ser trocado para usar a opção 'fail_fast', em desenvolvimento.
-# Ver https://github.com/travis-ci/travis-ci/issues/1066
-- set -e
-# Troca a linha do extends do último release para só apontar para as pinagens do Plone 4.3.x,
-# e adiciona 'eggs+=' e 'zcml+=' para poder funcionar o buildout (senão dá o erro
-# "Error: Referenced option does not exist: buildout zcml")
-- test $MASTER && sed -ie 's/.*http:\/\/downloads\.plone\.org\.br\/release\/.*/    http:\/\/dist\.plone\.org\/release\/4\.3-latest\/versions\.cfg\n\neggs\+=\n\nzcml+=/' buildout.d/base.cfg || true
+# Troca a linha do extends do último release para só apontar para as pinagens do Plone 4.3.x
+- test $MASTER && sed -ie 's/.*http:\/\/downloads\.plone\.org\.br\/release\/.*/    http:\/\/dist\.plone\.org\/release\/4\.3-latest\/versions\.cfg/' buildout.d/base.cfg || true
 - python bootstrap.py
 - bin/buildout annotate
 - bin/buildout
