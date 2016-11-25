@@ -8,6 +8,8 @@ cache:
 env:
   matrix:
     - MASTER=true
+    # Veja a motivação em https://github.com/plonegovbr/portalpadrao.release/blob/master/README.md
+    - VERSIONS_SEM_EXTENDS=true
     - LAST_RELEASE=true
 matrix:
   allow_failures:
@@ -19,6 +21,8 @@ before_install:
 install:
 # Troca a linha do extends do último release para só apontar para as pinagens do Plone 4.3.x
 - test $MASTER && sed -ie 's/.*http:\/\/downloads\.plone\.org\.br\/release\/.*/    http:\/\/dist\.plone\.org\/release\/4\.3-latest\/versions\.cfg/' buildout.d/base.cfg || true
+# '\1' no sed recebe o que encontrar em \(.*\), assim fica dinâmico.
+- test $VERSIONS_SEM_EXTENDS && sed -ie 's/.*http:\/\/downloads\.plone\.org\.br\/release\/\(.*\)\/versions.cfg/    http:\/\/downloads\.plone\.org\.br\/release\/\1\/versions-sem-extends.cfg/' buildout.d/base.cfg || true
 - python bootstrap.py
 - bin/buildout annotate
 - bin/buildout
