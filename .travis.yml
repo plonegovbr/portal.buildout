@@ -17,13 +17,18 @@ before_install:
 - whoami
 - cp travis.cfg buildout.cfg
 install:
-# Troca a linha do extends do último release para só apontar para as pinagens do Plone 4.3.x,
-# e adiciona 'eggs+=' e 'zcml+=' para poder funcionar o buildout (senão dá o erro
-# "Error: Referenced option does not exist: buildout zcml")
-- test $MASTER && sed -ie 's/.*http:\/\/downloads\.plone\.org\.br\/release\/.*/    http:\/\/dist\.plone\.org\/release\/4\.3-latest\/versions\.cfg\n\neggs\+=\n\nzcml+=/' buildout.d/base.cfg || true
+# Troca a linha do extends do último release para só apontar para as pinagens do Plone 4.3.x
+- test $MASTER && sed -ie 's/.*http:\/\/downloads\.plone\.org\.br\/release\/.*/    http:\/\/dist\.plone\.org\/release\/4\.3-latest\/versions\.cfg/' buildout.d/base.cfg || true
 - python bootstrap.py
 - bin/buildout annotate
 - bin/buildout
+# O release 1.1.5.1 veio com um erro e não vinha com os eggs do brasil.gov.portal.
+# Dessa forma, passamos a testar se o egg foi realmente adicionado no buildout
+# para que esse erro não ocorra novamente.
+# Caso altere a versão do zc.buildout, pode ser que você necessite alterar o
+# arquivo onde procura a string, trocando bin/instance por parts/instance.site.py
+# por exemplo.
+- grep -q 'brasil.gov.portal' bin/instance
 before_script:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
