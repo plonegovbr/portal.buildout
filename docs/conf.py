@@ -10,7 +10,7 @@ project = u'Portal Padrão'
 copyright = u'2017, PloneGov.BR'
 
 version = '20170112'
-release = '20140112.01'
+release = '20170112.01'
 
 language = 'pt_BR'
 
