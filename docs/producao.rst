@@ -93,7 +93,7 @@ Para entender a motivação dessa diferença, leia a `documentação <https://gi
 Buildout
 ---------------------
 
-Criamos um novo arquivo de configuração *buildout.cfg*, que estende o
+Criar um novo arquivo de configuração *buildout.cfg*, que estende o
 **production.cfg** para definir variáveis deste ambiente:
 ::
 
