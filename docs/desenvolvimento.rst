@@ -53,7 +53,7 @@ Para entender a motivação dessa diferença, leia a `documentação <https://gi
            Python 2.7, efetuando sobre ela esses procedimentos de
            instalação de bibliotecas e virtualenv.
 
-Criamos um novo arquivo de configuração *buildout.cfg*, que estende o
+Criar um novo arquivo de configuração *buildout.cfg*, que estende o
 **development.cfg** para definir variáveis deste ambiente
 ::
 
