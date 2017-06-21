@@ -73,4 +73,5 @@ No CentOS 7:
 
     sudo yum install -y epel-release && sudo yum update -y
     sudo yum install -y gcc gcc-g++ make tar bzip2 gzip openssl-devel libxml2-devel libxml2 libxslt-devel bzip2-libs zlib-devel python-setuptools python-devel python-virtualenv libjpeg-turbo-devel readline-devel python-imaging python-pip poppler-utils git openldap-devel
+    # Recomendamos fortemente que instale o pacote wv usando o gerenciador de pacotes/EPEL, caso não seja possível, você pode instalar manualmente pela url:
     sudo yum install -y https://kojipkgs.fedoraproject.org//packages/wv/1.2.7/2.el6/x86_64/wv-1.2.7-2.el6.x86_64.rpm
