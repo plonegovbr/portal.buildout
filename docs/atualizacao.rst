@@ -24,6 +24,12 @@ https://github.com/plonegovbr/portalpadrao.release#user-content-por-que-versions
 .. note :: Pode ser necessário, entre releases, executar o que chamamos de
            "upgradeSteps". Favor ler a seção a seguir para entender o processo.
 
+.. warning :: **Não utilize portal_quickinstaller** para reinstalar versões do IDG
+              após atualização. Se quiser entender a motivação disso acesse a
+              seção "Execução de reinstall em portal_quickinstaller" nesse
+              documento. O jeito correto de se atualizar é com o uso de
+              upgradeSteps.
+
 Execução de upgradeSteps
 ------------------------
 
@@ -132,6 +138,46 @@ Quando todos os pacotes forem atualizados, você terá uma tela como essa:
 
 Ou seja, o select indicando que pacotes precisam ser atualizados não existe mais
 indicando que todos foram atualizados. Todos os upgradeSteps foram executados.
+
+Execução de reinstall em portal_quickinstaller
+----------------------------------------------
+
+Apesar de no passado na comunidade Plone ter sido comum reinstalar pacotes pela
+ZMI no portal_quickinstaller, isso **não é considerado mais uma boa prática** e
+**não deve ser feito em ambientes IDG** pois ele não está preparado nem foi
+testado pra isso. Nas versões mais atuais do Plone (marcos 5.x.x. e 5.1.x) é
+**removido** o suporte ao portal_quickinstaller e ele será completamente
+excluído no Plone 6.
+(Ver https://github.com/plone/Products.CMFPlone/issues/1340 e
+https://github.com/plone/Products.CMFPlone/issues/1775).
+
+Essa decisão foi tomada porque a reinstalação, por desinstalar o pacote e
+reinstalar, não só ele, mas todas as dependências definidas em metadata.xml, é
+completamente imprevisível pois nunca se sabe se uma dependência tenta tratar
+dados que por ventura tenham sido alterados pelo usuário final. Quando isso não
+é feito, dados podem ser perdidos.
+
+Assim, apesar de alguns pacotes aparecerem em vermelho no portal_quickinstaller,
+eles **não devem ser reinstalados**. Exemplo de como pode estar seu portal_quickinstaller
+se você tinha uma versão mais antiga, como a 1.0.5 e atualizou para uma mais nova
+(por exemplo 1.2):
+
+.. image:: images/zmi10.png
+
+Ou se instalou diretamente a partir da 1.1.5.1 e atualizou para a mais nova,
+1.2:
+
+.. image:: images/zmi11.png
+
+Isso não quer dizer que os pacotes estão incompletos ou não foram instalados
+corretamente: como já foi falado em seções anteriores,  o que não pode faltar é  
+a execução de upgradeSteps caso eles existam numa atualização de versão.
+
+Se você chegou a efetuar o reinstall em algum produto no seu portal durante uma
+atualização de versão do IDG, configurações de painel de controle (como nome
+do site e outras configurações) serão **resetadas** para o Padrão IDG. Nossa
+recomendação é executar o comando de `Undo` se tiver efetuado algum reinstall
+nesse contexto.
 
 Considerações Finais
 --------------------
