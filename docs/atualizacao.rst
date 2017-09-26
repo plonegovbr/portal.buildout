@@ -3,22 +3,64 @@ Atualização de *release*
 ==========================================
 
 Toda vez que uma nova *release* (pacote de atualização **estável**) do Portal
-Institucional Padrão em Plone for lançada no :term:`PyPI`, a Comunidade avisará
+Institucional Padrão em Plone for lançada no :term:`PyPI`, a Comunidade/Patrocinador avisará
 na lista de discussões :term:`PloneGov-BR`.
 
 .. note :: Atualmente não há uma frequência estabelecida para criação de
            *releases* do produto principal *brasil.gov.portal*.
 
-Para atualizar um portal existente, basta alterar a versão do *buildout* para o
-número de versão mais atual, na url do `extends` do *buildout* em base.cfg,
-(https://github.com/plonegovbr/portal.buildout/blob/master/buildout.d/base.cfg),
-rodar o *buildout* e reiniciar a(s) instância(s).
+É **muito importante** que seja feita a leitura do changelog da release, geralmente
+presente em https://github.com/plonegovbr/portalpadrao.release/releases/tag/X.X, pois podem
+ser necessários passos adicionais de configuração. Sempre leia atentamente para
+evitar problemas futuros.
 
-As versões disponibilizadas pelo Portal Padrão podem ser vistas em
-https://github.com/plonegovbr/portalpadrao.release. Caso o seu servidor não
-possua acesso externo, você precisa usar o arquivo versions-sem-extends.cfg ao
-invés do versions.cfg ao alterar o base.cfg. Para maiores informações sobre a
-diferença entre versions.cfg e versions-sem-extends.cfg, acesse
+Se você tiver montado o seu ambiente de produção como demonstrado em
+http://identidade-digital-de-governo-plone.readthedocs.io/en/latest/producao/#usando-repositorio,
+(ou seja, usando como base o repositório portal.buildout), para atualizar o seu ambiente,  
+basta dar checkout na versão desejada, executar o buildout, subir a(s) instância(s) e,  
+se aplicável, executar upgradeSteps. Isso tem a vantagem de receber também possíveis  
+mudanças/melhorias de configuração (e não só mudanças de versões de pacotes). Se  
+for esse o seu caso, acesse o diretório de seu buildout e execute o seguinte comando  
+para atualizar para a versão desejada de portal.buildout:
+
+::
+
+    # X.X.X.X é a última tag em releases, presente em
+    # https://github.com/plonegovbr/portal.buildout/releases
+    git checkout tags/X.X.X.X
+
+Casa esteja utilizando um buildout customizado, para atualizar um portal existente,
+você precisará alterar o número da versão de release usada no *extends* de seu arquivo
+de buildout (que pode ser base.cfg, buildout.cfg ou qualquer outro), rodar o
+*buildout*, subir as a(s) instância(s) e, se aplicável, executar upgradeSteps.
+
+Exemplo: suponha que você tenha um buildout customizado utilizando a versão
+1.1.5.3 do IDG, contendo a seguinte url no extends do seu arquivo de buildout:
+
+::
+
+    extends =
+        http://downloads.plone.org.br/release/1.1.5.3/versions.cfg
+
+Verificando em https://github.com/plonegovbr/portalpadrao.release/releases, você percebe
+que há uma versão mais atual, a 1.2, e deseja atualizar. Após ler todos os
+detalhes do release em https://github.com/plonegovbr/portalpadrao.release/releases/tag/1.2
+e efetuando possíveis alterações (se aplicáveis), altere seu arquivo de buildout para:
+
+::
+
+    extends =
+        http://downloads.plone.org.br/release/1.2/versions.cfg
+
+Rode o *buildout*, suba as a(s) instância(s) e, se aplicável, execute os upgradeSteps.
+Seu portal estará atualizado.
+
+As versões disponibilizadas pelo Portal Padrão e suas dependências podem ser vistas em
+https://github.com/plonegovbr/portalpadrao.release/. Caso o seu servidor não
+possua acesso externo, você precisará baixar e usar o arquivo versions-sem-extends.cfg ao
+invés da url do versions.cfg ao alterar no seu arquivo de buildout.
+
+Para entender melhor a diferença entre versions.cfg e versions-sem-extends.cfg, acesse
 https://github.com/plonegovbr/portalpadrao.release#user-content-por-que-versionscfg-e-versions-sem-extendscfg-qual-devo-usar
 
 .. note :: Pode ser necessário, entre releases, executar o que chamamos de
@@ -170,7 +212,7 @@ Ou se instalou diretamente a partir da 1.1.5.1 e atualizou para a mais nova,
 .. image:: images/zmi11.png
 
 Isso não quer dizer que os pacotes estão incompletos ou não foram instalados
-corretamente: como já foi falado em seções anteriores,  o que não pode faltar é  
+corretamente: como já foi falado em seções anteriores,  o que não pode faltar é
 a execução de upgradeSteps caso eles existam numa atualização de versão.
 
 Se você chegou a efetuar o reinstall em algum produto no seu portal durante uma
