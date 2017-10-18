@@ -40,25 +40,13 @@ install:
 - test $VERSIONS_SEM_EXTENDS && sed -ie '/buildout\.d\/versions\.cfg/d' buildout.cfg || true
 - python bootstrap.py
 - bin/buildout annotate
-# FIXME:
-# Além de pinar a versão do firefox, preciso pinar a do selenium. A pinagem aqui
-# é a versão do selenium usada no último Plone 4 no momento do commit.
-# http://dist.plone.org/release/4.3.15/versions.cfg
-# Quando https://github.com/plonegovbr/brasil.gov.portal/issues/331 for atendido,
-# essa pinagem pode ser removida daqui.
-- bin/buildout versions:selenium=2.53.5
-# O release 1.1.5.1 veio com um erro e não vinha com os eggs do brasil.gov.portal.
-# Dessa forma, passamos a testar se o egg foi realmente adicionado no buildout
-# para que esse erro não ocorra novamente.
-# Caso altere a versão do zc.buildout, pode ser que você necessite alterar o
-# arquivo onde procura a string, trocando bin/instance por parts/instance.site.py
-# por exemplo.
-- grep -q 'brasil.gov.portal' bin/instance
+- bin/buildout
 before_script:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 - firefox -v
 script:
 - PLONE_CSRF_DISABLED=true bin/test
+- PLONE_CSRF_DISABLED=true bin/test-dependencies
 notifications:
   irc: irc.freenode.org#plonegovbr
