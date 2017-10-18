@@ -41,12 +41,18 @@ install:
 - python bootstrap.py
 - bin/buildout annotate
 - bin/buildout
+# O release 1.1.5.1 veio com um erro e não vinha com os eggs do brasil.gov.portal.
+# Dessa forma, passamos a testar se o egg foi realmente adicionado no buildout
+# para que esse erro não ocorra novamente.
+# Caso altere a versão do zc.buildout, pode ser que você necessite alterar o
+# arquivo onde procura a string, trocando bin/instance por parts/instance.site.py
+# por exemplo.
+- grep -q 'brasil.gov.portal' bin/instance
 before_script:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 - firefox -v
 script:
 - PLONE_CSRF_DISABLED=true bin/test
-- PLONE_CSRF_DISABLED=true bin/test-dependencies
 notifications:
   irc: irc.freenode.org#plonegovbr
