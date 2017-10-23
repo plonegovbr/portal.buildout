@@ -146,9 +146,11 @@ esquerda, selecione a opção "portal_setup". Na sequência, clique na aba
 .. image:: images/zmi05.png
 
 3. A frase "These profiles have pending upgrades" na imagem abaixo indica que
-há pacotes que precisam ter executados os seus upgradeSteps. Clique no select e,
-se houver o `brasil.gov.portal:default` selecione-o primeiro e logo em sequência
-no botão "Choose Profile" ao lado.
+há pacotes que precisam ter executados os seus upgradeSteps. Clique no select:
+geralmente, selecionamos `brasil.gov.portal:default` como primeira opção, a não
+ser que existe uma outra ordem especificada no changelog do release (se não existir
+nem `brasil.gov.portal:default` selecione o que estiver disponível). Após selecioná-lo,
+clique no botão "Choose Profile" ao lado.
 
 .. image:: images/zmi06.png
 
@@ -161,6 +163,10 @@ outros sem selecionar como demonstrado na tela abaixo:
 o processo acabar (pode ser que demore dependendo do volume de objetos no seu site),
 **não recarregue a página** manualmente, após a finalização da atualização ela é
 recarregada automaticamente.
+
+.. note :: Se o pacote que estiver para ser atualizado não vier com o checkbox
+           do upgradeStep já marcado, você pode selecioná-lo para prosseguir.
+           Selecione sempre os checkboxes de um "Upgrade Step Group" por vez.
 
 .. image:: images/zmi07_01.png
 
@@ -179,7 +185,18 @@ Quando todos os pacotes forem atualizados, você terá uma tela como essa:
 .. image:: images/zmi09.png
 
 Ou seja, o select indicando que pacotes precisam ser atualizados não existe mais
-indicando que todos foram atualizados. Todos os upgradeSteps foram executados.
+indicando que todos foram atualizados, e com a mensagem em inglês "These profiles
+have no pending upgrades, but old steps are available if needed:" indicando que todos
+os upgradeSteps foram executados.
+
+.. warning :: Se você chegou até aqui seguindo o roteiro acima e agora vê a mensagem
+              "These profiles have no pending upgrades, but old steps are available
+              if needed:", isso significa que os upgradeSteps já foram executados e
+              não há mais o que ser feito. O botão "Show" mostra os upgradeSteps antigos,
+              mas não informa se eles foram executados ou não. **Não reexecute um upgradeStep 
+              antigo a não ser que saiba exatamente o que está fazendo**. Há um relato aberto 
+              pedindo melhorias nessa interface de upgradeStep mas ainda não foi feito
+              https://github.com/zopefoundation/Products.GenericSetup/issues/36
 
 Execução de reinstall em portal_quickinstaller
 ----------------------------------------------
