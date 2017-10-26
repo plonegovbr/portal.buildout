@@ -21,12 +21,12 @@ env:
   matrix:
     - MASTER=true
     # Veja a motivação em https://github.com/plonegovbr/portalpadrao.release/blob/master/README.md
-    - VERSIONS_SEM_EXTENDS=true
     - LAST_RELEASE=true
+    - PRODUCTION=true
 matrix:
   allow_failures:
     - env: MASTER=true
-    - env: VERSIONS_SEM_EXTENDS=true
+    - env: PRODUCTION=true
   fast_finish: true
 before_install:
 - whoami
@@ -36,8 +36,6 @@ install:
 - test $MASTER && sed -ie 's#http://downloads.plone.org.br/release/.*/#http://dist.plone.org/release/4.3-latest/#' buildout.d/base.cfg || true
 - test $MASTER && sed -ie '/buildout\.d\/versions\.cfg/d' buildout.cfg || true
 # '\1' no sed recebe o que encontrar em \(.*\), assim fica dinâmico.
-- test $VERSIONS_SEM_EXTENDS && sed -ie 's#http://downloads.plone.org.br/release/\(.*\)/versions.cfg#http://downloads.plone.org.br/release/\1/versions-sem-extends.cfg#' buildout.d/base.cfg || true
-- test $VERSIONS_SEM_EXTENDS && sed -ie '/buildout\.d\/versions\.cfg/d' buildout.cfg || true
 - python bootstrap.py
 - bin/buildout annotate
 - bin/buildout
