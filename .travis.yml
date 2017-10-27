@@ -38,7 +38,7 @@ install:
 # '\1' no sed recebe o que encontrar em \(.*\), assim fica dinâmico.
 - test $VERSIONS_SEM_EXTENDS && sed -ie 's#http://downloads.plone.org.br/release/\(.*\)/versions.cfg#http://downloads.plone.org.br/release/\1/versions-sem-extends.cfg#' buildout.d/base.cfg || true
 - test $VERSIONS_SEM_EXTENDS && sed -ie '/buildout\.d\/versions\.cfg/d' buildout.cfg || true
-- python bootstrap.py
+- python bootstrap.py --setuptools-version=36.3.0 --buildout-version=2.9.5
 - bin/buildout annotate
 # FIXME:
 # Além de pinar a versão do firefox, preciso pinar a do selenium. A pinagem aqui
