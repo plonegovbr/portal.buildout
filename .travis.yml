@@ -34,7 +34,9 @@ before_install:
 install:
 # Troca a linha do extends do último release para só apontar para as pinagens do Plone 4.3.x
 - test $MASTER && sed -ie 's#http://downloads.plone.org.br/release/.*/#http://dist.plone.org/release/4.3-latest/#' buildout.d/base.cfg || true
-- test $MASTER && sed -ie '/buildout\.d\/versions\.cfg/d' buildout.cfg || true
+# development.cfg dá extends em buildout.d/versions.cfg, onde temos as versões para
+# LAST_RELEASE, portanto, para testarmos o MASTER devemos remover esse extends dele.
+- test $MASTER && sed -ie '/buildout\.d\/versions\.cfg/d' development.cfg || true
 # '\1' no sed recebe o que encontrar em \(.*\), assim fica dinâmico.
 - python bootstrap.py
 - bin/buildout annotate
