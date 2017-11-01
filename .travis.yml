@@ -28,6 +28,7 @@ matrix:
   fast_finish: true
 before_install:
 - whoami
+- pip list
 - cp travis.cfg buildout.cfg
 install:
 - python bootstrap.py --setuptools-version=26.1.1 --buildout-version=2.9.5
