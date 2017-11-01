@@ -19,25 +19,17 @@ addons:
   firefox: 46.0.1
 env:
   matrix:
-    - MASTER=true
-    # Veja a motivação em https://github.com/plonegovbr/portalpadrao.release/blob/master/README.md
-    - LAST_RELEASE=true
+    # TODO: update https://github.com/plonegovbr/portalpadrao.release/blob/master/README.md
+    - DEVELOPMENT=true
     - PRODUCTION=true
 matrix:
   allow_failures:
-    - env: MASTER=true
     - env: PRODUCTION=true
   fast_finish: true
 before_install:
 - whoami
 - cp travis.cfg buildout.cfg
 install:
-# Troca a linha do extends do último release para só apontar para as pinagens do Plone 4.3.x
-- test $MASTER && sed -ie 's#http://downloads.plone.org.br/release/.*/#http://dist.plone.org/release/4.3-latest/#' buildout.d/base.cfg || true
-# development.cfg dá extends em buildout.d/versions.cfg, onde temos as versões para
-# LAST_RELEASE, portanto, para testarmos o MASTER devemos remover esse extends dele.
-- test $MASTER && sed -ie '/buildout\.d\/versions\.cfg/d' development.cfg || true
-# '\1' no sed recebe o que encontrar em \(.*\), assim fica dinâmico.
 - python bootstrap.py
 - bin/buildout annotate
 - bin/buildout
@@ -53,6 +45,13 @@ before_script:
 - sh -e /etc/init.d/xvfb start
 - firefox -v
 script:
-- PLONE_CSRF_DISABLED=true bin/test
+# FIXME: we have isolation issues running tests
+- bin/test -s brasil.gov.agenda
+- bin/test -s brasil.gov.barra
+- bin/test -s brasil.gov.portal
+- bin/test -s brasil.gov.portlets
+- bin/test -s brasil.gov.temas
+- bin/test -s brasil.gov.tiles
+- bin/test -s brasil.gov.vcge
 notifications:
   irc: irc.freenode.org#plonegovbr
