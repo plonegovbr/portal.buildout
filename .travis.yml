@@ -17,6 +17,8 @@ env:
   - DEVELOPMENT=true
   - PRODUCTION=true
 matrix:
+  allow_failures:
+  - env: PRODUCTION=true
   fast_finish: true
 before_install:
 - test $DEVELOPMENT && cp travis-development.cfg buildout.cfg || cp travis-production.cfg buildout.cfg
