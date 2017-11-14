@@ -120,6 +120,53 @@ dos já existentes:
         mkdir-chameleon
         zopepy
 
+Instalação com Docker
+-----------------------
+
+Para instalação use o docker-compose ou crie com docker como o `manual <https://docs.plone.org/manage/docker/docs/index.html>`_.
+
+
+Um exemplo de **docker-compose.yml**.  
+
+::
+
+    version: "2"
+    services:
+      haproxy:
+    	 image: eeacms/haproxy
+    	 ports:
+    	 - 80:5000
+    	 - 1936:1936
+    	 depends_on:
+    	 - plone
+    	 environment:
+    	   BACKENDS: "plone"
+    	   BACKENDS_PORT: "8080"
+    	   DNS_ENABLED: "True"
+
+      plone:
+    	 image: plonegovbr/plonegovbr
+    	 depends_on:
+    	 - zeoserver
+    	 environment:
+    	 - ZEO_ADDRESS=zeoserver:8100
+
+      zeoserver:
+    	 image: plonegovbr/plonegovbr
+    	 command: zeoserver
+    	 volumes:
+    	 - data:/data
+
+    volumes:
+      data:
+
+Com o comando 
+.. code-block:: shell
+ 
+    docker-compose up -d
+
+Irá criar um serviço de haproxy que ira balancear os backends e um zeoserver. 
+
 Inicialização e controle
 ==========================
 
