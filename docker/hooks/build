@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+set -ex
+
+# Verifica se é um build do master ou se é uma TAG
+if [ "${SOURCE_BRANCH}" = master ]; then PLONEGOVBR_VERSION=$(cat ../latest); TAG_VERSION='latest'; else PLONEGOVBR_VERSION="${SOURCE_BRANCH}"; TAG_VERSION="$PLONEGOVBR_VERSION"; fi
+
+docker build --build-arg PLONEGOVBR_VERSION=$PLONEGOVBR_VERSION -t $IMAGE_NAME:$TAG_VERSION .
