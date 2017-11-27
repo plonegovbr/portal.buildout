@@ -6,14 +6,15 @@ cache:
   - eggs
   - parts/node
 addons:
-  # XXX: use an older Firefox ESR as we are stuck with selenium = 2.53.5
-  #      https://github.com/SeleniumHQ/selenium/issues/2739#issuecomment-249482533
   firefox: 45.9.0esr
 env:
   global:
   - PLONE_CSRF_DISABLED=true
+# DOCKER_LOGIN
+  - secure: IiDrW4wO5sPO67bDoLniS/fp6HM6CpRHUi5b5rwbzibXjg59n9wIdQDmv7PuJRxRG8TCTS6HvGtbMXE1NQ0WuBIN6rvOUBzX72tAxQBnUbAggp2yA4U6xQrcDVCBqZtgt7CUGcRNbEQKl96YNjQvsuVfMQ02lHGz4j4TduzhZtg=
+# DOCKER_PASS
+  - secure: Nz00qh28EYnfhT0WM32lYMt0kWkw2JcWeb3sh4ttVn6CnM5+RiN1I++4ZXC2iHD7GIrpvfSVdIie2JNr99LYNyRlGdiJv+eOO9IStGrXH8CRLyw0wzBTOItRz/pm3AYFAF9GDALrDtF3Xb8Nt+XjcfSwpFuj1fsXn4KHJp77I5E=
   matrix:
-  # TODO: update https://github.com/plonegovbr/portalpadrao.release/blob/master/README.md
   - DEVELOPMENT=true
   - PRODUCTION=true
 matrix:
@@ -21,24 +22,20 @@ matrix:
   - env: PRODUCTION=true
   fast_finish: true
 before_install:
-- test $DEVELOPMENT && cp travis-development.cfg buildout.cfg || cp travis-production.cfg buildout.cfg
+- test $DEVELOPMENT && cp travis-development.cfg buildout.cfg || cp travis-production.cfg
+  buildout.cfg
+- sudo curl -L https://github.com/aelsabbahy/goss/releases/download/v0.3.5/goss-linux-amd64
+  -o /usr/local/bin/goss
+- sudo chmod +rx /usr/local/bin/goss
 install:
-# use setuptools version included by virtualenv in Trusty
 - python bootstrap.py --setuptools-version=36.3.0 --buildout-version=2.9.5
 - bin/buildout annotate
 - bin/buildout
-# O release 1.1.5.1 veio com um erro e não vinha com os eggs do brasil.gov.portal.
-# Dessa forma, passamos a testar se o egg foi realmente adicionado no buildout
-# para que esse erro não ocorra novamente.
-# Caso altere a versão do zc.buildout, pode ser que você necessite alterar o
-# arquivo onde procura a string, trocando bin/instance por parts/instance.site.py
-# por exemplo.
 - grep -q 'brasil.gov.portal' bin/instance
 before_script:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 script:
-# FIXME: we have isolation issues running tests
 - bin/test -s brasil.gov.agenda
 - bin/test -s brasil.gov.barra
 - bin/test -s brasil.gov.portal
@@ -46,8 +43,17 @@ script:
 - bin/test -s brasil.gov.temas
 - bin/test -s brasil.gov.tiles
 - bin/test -s brasil.gov.vcge
-- docker run --rm -i lukasmartinelli/hadolint < docker/Dockerfile
+- docker run --rm -i lukasmartinelli/hadolint /bin/hadolint --ignore DL3002 --ignore
+  DL3004 --ignore SC2086 --ignore DL3008 - < docker/Dockerfile
+- docker build -t plonegovbr/plonegovbr:test docker
+- docker run -d -p 8080:8080 --name plonegovbr plonegovbr/plonegovbr:test
+- sudo goss validate --retry-timeout 180s --sleep 2s
 after_failure:
 - grep brasil.gov bin/test
 notifications:
   irc: irc.freenode.org#plonegovbr
+deploy:
+  provider: script
+  script: script/deploy.sh
+  on:
+    tags: true
