@@ -46,6 +46,7 @@ script:
 - bin/test -s brasil.gov.temas
 - bin/test -s brasil.gov.tiles
 - bin/test -s brasil.gov.vcge
+- docker run --rm -i lukasmartinelli/hadolint < docker/Dockerfile
 after_failure:
 - grep brasil.gov bin/test
 notifications:
