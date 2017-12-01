@@ -1,9 +1,9 @@
-=======================================
-Problemas Comuns
-=======================================
+================
+Problemas comuns
+================
 
 Não consigo clonar o repositório
-=============================================
+================================
 
 Provavelmente seu acesso internet é feito através de algum servidor de Proxy.
 Se o bloqueio acontecer apenas para a porta de **SSH** (22), altere
@@ -12,8 +12,7 @@ todas as referências a  **git@github.com:** por **https://github.com/**.
 Error: Buildout now includes 'buildout-versions' (and part of the older 'buildout.dumppickedversions')
 ======================================================================================================
 
-A tag `1.1.3 <https://github.com/plonegovbr/portal.buildout/releases/tag/1.1.3>`_
-está causando o erro:
+A tag `1.1.3 <https://github.com/plonegovbr/portal.buildout/releases/tag/1.1.3>`_ está causando o erro:
 
 ::
 
