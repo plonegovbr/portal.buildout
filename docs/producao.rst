@@ -144,40 +144,6 @@ E finalmente executa-se o :command:`buildout` com as configurações para ambien
 Instalação no CentOS
 --------------------
 
-Para instalação do Portal Padrão no CentOS 5,
-devido às diferenças de versões das bibliotecas libxml e libxslt,
-é recomendada a instalação das versões corretas através do próprio *buildout*.
-
-.. note::
-    Essas instruções só devem ser seguidas para o caso de instalação em CentOS 5.
-
-No **buildout.cfg** incluir o passo **[lxml]**:
-
-.. code-block:: ini
-
-    [buildout]
-    extends =
-        development.cfg
-
-    [lxml]
-    recipe = z3c.recipe.staticlxml
-    egg = lxml
-    libxml2-url = xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz
-    libxslt-url = xmlsoft.org/libxml2/libxslt-1.1.26.tar.gz
-    static-build = true
-    force = false
-
-No **buildout.d/base.cfg** incluir o passo **[lxml]** definido acima,
-antes dos já existentes:
-
-.. code-block:: ini
-
-    parts =
-        lxml
-        instance
-        mkdir-chameleon
-        zopepy
-
 No CentOS 7, é necessário liberar a porta 8000 no firewall para torná-la acessível na rede interna, conforme (como root):
 
 .. code-block:: console
