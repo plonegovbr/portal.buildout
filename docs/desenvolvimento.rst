@@ -86,43 +86,6 @@ E finalmente executa-se o :command:`buildout` com as configurações para ambien
     **Não execute** o seu buildout com :command:`sudo`:
     dessa forma, seu virtualenv será `ignorado <http://askubuntu.com/a/478001>`_ e ocorrerá todo tipo de erro de dependências da sua instância com as do Python do sistema.
 
-Instalação no CentOS
---------------------
-
-Para instalação do Portal Padrão no CentOS 5,
-devido às diferenças de versões das bibliotecas libxml e libxslt,
-é recomendada a instalação das versões corretas através do próprio *buildout*.
-
-.. note::
-    Essas instruções só devem ser seguidas para o caso de instalação em CentOS 5.
-
-No **buildout.cfg** incluir o passo **[lxml]**:
-
-.. code-block:: ini
-
-    [buildout]
-    extends =
-        development.cfg
-
-    [lxml]
-    recipe = z3c.recipe.staticlxml
-    egg = lxml
-    libxml2-url = xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz
-    libxslt-url = xmlsoft.org/libxml2/libxslt-1.1.26.tar.gz
-    static-build = true
-    force = false
-
-No **buildout.d/base.cfg** incluir o passo **[lxml]** definido acima,
-antes dos já existentes:
-
-.. code-block:: ini
-
-    parts =
-        lxml
-        instance
-        mkdir-chameleon
-        zopepy
-
 Instalação com Docker
 ---------------------
 
