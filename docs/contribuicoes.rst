@@ -15,15 +15,15 @@ Nós modelamos as regras abaixo baseados nas seguintes documentações:
 Comprimento da linha
 ====================
 
-Todo código Python deste pacote deve estar de acordo com as convenções 
-estabelecidas no PEP8. Isto inclui ser aderente a 80 caracteres no 
-comprimento da linha. Se for extremamente necessário quebrar esta regra, 
-acrescente ``# noPEP8`` à linha em questão para que ela seja ignorada nas 
+Todo código Python deste pacote deve estar de acordo com as convenções
+estabelecidas no PEP8. Isto inclui ser aderente a 80 caracteres no
+comprimento da linha. Se for extremamente necessário quebrar esta regra,
+acrescente ``# noPEP8`` à linha em questão para que ela seja ignorada nas
 verificações de sintaxe.
 
 .. note::
-    Configure seu editor para trabalhar com uma linha de 79 colunas. Isto
-    ajuda a leitura e poupa tempo do desenvolvedor.
+    Configure seu editor para trabalhar com uma linha de 79 colunas.
+    Isto ajuda a leitura e poupa tempo do desenvolvedor.
 
 .. note::
     A regra do comprimento da linha se aplica não só aos arquivos com código Python,

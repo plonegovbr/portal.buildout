@@ -1,61 +1,65 @@
-=======================================
+===========================
 Ambiente de desenvolvimento
-=======================================
+===========================
 
 Instalando o código do Portal
-================================
+=============================
 
 Usando repositório
----------------------
+------------------
 
 Inicialmente é feito o clone deste *buildout*:
-::
 
-    cd ~
-    git clone git@github.com:plonegovbr/portal.buildout.git portal.buildout
+.. code-block:: console
+
+    $ cd ~
+    $ git clone git@github.com:plonegovbr/portal.buildout.git
 
 
-.. note :: Caso o comando acima apresente problemas -- provavelmente devido ao
-           bloqueio da porta de SSH (22) na sua rede interna -- altere
-           **git@github.com:** por **https://github.com/**.
-
+.. note::
+    Caso o comando acima apresente problemas -- provavelmente devido ao bloqueio da porta de SSH (22) na sua rede interna -- altere **git@github.com:** por **https://github.com/**.
 
 Virtualenv
----------------------
+----------
 
-Para evitar conflitos com o Python utilizado pelo sistema operacional, cria-se
-um virtualenv apartado do restante do sistema. Execute:
-::
+Para evitar conflitos com o Python utilizado pelo sistema operacional,
+cria-se um ambiente virtual (:command:`virtualenv`) apartado do restante do sistema.
+Execute:
 
-    virtualenv --version
+.. code-block:: console
 
-Se a versão for menor que 1.10 (por exemplo na distribuição LTS do Ubuntu
-12.04), você precisa executar o virtualenv da seguinte forma:
-::
+    $ virtualenv --version
 
-    cd $HOME/portal.buildout
-    virtualenv --setuptools py27
-    source py27/bin/activate
+Se a versão for menor que 1.10 (por exemplo na distribuição LTS do Ubuntu 12.04),
+você precisa executar o :command:`virtualenv` da seguinte forma:
 
-Se for maior ou igual a 1.10, o comando virtualenv não necessita do parâmetro
-*--setuptools* como indicado acima:
-::
+.. code-block:: console
 
-    cd $HOME/portal.buildout
-    virtualenv py27
-    source py27/bin/activate
+    $ cd ~/portal.buildout
+    $ virtualenv --setuptools py27
+    $ source py27/bin/activate
 
-Para entender a motivação dessa diferença, leia a `documentação <https://github.com/plonegovbr/portal.buildout/issues/41>`_.
+Se for maior ou igual a 1.10,
+o comando :command:`virtualenv` não necessita do parâmetro *--setuptools* como indicado acima:
 
-.. note :: Apesar das instruções de instalação de bibliotecas e execução
-           do virtualenv sobre o python da máquina, para menor complexidade
-           do procedimento, é recomendado o uso de uma nova instalação de
-           Python 2.7, efetuando sobre ela esses procedimentos de
-           instalação de bibliotecas e virtualenv.
+.. code-block:: console
 
-Criar um novo arquivo de configuração *buildout.cfg*, que estende o
-**development.cfg** para definir variáveis deste ambiente
-::
+    $ cd ~/portal.buildout
+    $ virtualenv py27
+    $ source py27/bin/activate
+
+Para entender a motivação dessa diferença,
+leia a `documentação <https://github.com/plonegovbr/portal.buildout/issues/41>`_.
+
+.. note::
+    Apesar das instruções de instalação de bibliotecas e execução do :command:`virtualenv` sobre o Python da máquina,
+    para menor complexidade do procedimento é recomendado o uso de uma nova instalação de Python 2.7,
+    efetuando sobre ela esses procedimentos de instalação de bibliotecas e :command:`virtualenv`.
+
+Criar um novo arquivo de configuração *buildout.cfg*,
+que estende o **development.cfg** para definir variáveis deste ambiente
+
+.. code-block:: ini
 
     [buildout]
     extends =
@@ -67,36 +71,34 @@ Criar um novo arquivo de configuração *buildout.cfg*, que estende o
     plone = https://github.com/plone
     simplesconsultoria = https://github.com/simplesconsultoria
 
-.. note :: Na configuração garantimos que todos os códigos hospedados no
-           :term:`GitHub` sejam baixados através de HTTPS e não de SSH -- esta
-           alteração não é obrigatória, mas é comum em redes que possuam
-           um *firewall* impedindo acesso direto à Internet.
+.. note::
+    Na configuração garantimos que todos os códigos hospedados no :term:`GitHub` sejam baixados através de HTTPS e não de SSH -- esta alteração não é obrigatória,
+    mas é comum em redes que possuam um *firewall* impedindo acesso direto à Internet.
 
-E finalmente executa-se o *buildout* com as configurações para ambiente de
-produção -- **buildout.cfg**
-::
+E finalmente executa-se o :command:`buildout` com as configurações para ambiente de produção -- **buildout.cfg**
 
-    python bootstrap.py -c buildout.cfg
-    ./bin/buildout -c buildout.cfg
+.. code-block:: console
 
-.. warning :: **Não execute** o seu buildout com sudo: dessa forma, seu
-              virtualenv será `ignorado <http://askubuntu.com/a/478001>`_ e
-              ocorrerá todo tipo de erro de dependências da sua instância com
-              as do Python do sistema.
+    $ python bootstrap.py --setuptools-version=26.1.1 --buildout-version=2.9.5
+    $ bin/buildout
 
+.. warning::
+    **Não execute** o seu buildout com :command:`sudo`:
+    dessa forma, seu virtualenv será `ignorado <http://askubuntu.com/a/478001>`_ e ocorrerá todo tipo de erro de dependências da sua instância com as do Python do sistema.
 
 Instalação no CentOS
------------------------
+--------------------
 
-Para instalação do Portal Padrão no CentOS 5, devido a diferenças de versões
-das bibliotecas libxml e libxslt, é recomendada a instalação das versões
-corretas através do próprio *buildout*.
+Para instalação do Portal Padrão no CentOS 5,
+devido às diferenças de versões das bibliotecas libxml e libxslt,
+é recomendada a instalação das versões corretas através do próprio *buildout*.
 
-.. note :: Essas instruções só devem ser seguidas para o caso de
-           instalação em CentOS 5.
+.. note::
+    Essas instruções só devem ser seguidas para o caso de instalação em CentOS 5.
 
 No **buildout.cfg** incluir o passo **[lxml]**:
-::
+
+.. code-block:: ini
 
     [buildout]
     extends =
@@ -110,9 +112,10 @@ No **buildout.cfg** incluir o passo **[lxml]**:
     static-build = true
     force = false
 
-No **buildout.d/base.cfg** incluir o passo **[lxml]** definido acima, antes
-dos já existentes:
-::
+No **buildout.d/base.cfg** incluir o passo **[lxml]** definido acima,
+antes dos já existentes:
+
+.. code-block:: ini
 
     parts =
         lxml
@@ -121,14 +124,13 @@ dos já existentes:
         zopepy
 
 Instalação com Docker
------------------------
+---------------------
 
 Para instalação use o docker-compose ou crie com docker como o `manual <https://docs.plone.org/manage/docker/docs/index.html>`_.
 
+Um exemplo de **docker-compose.yml**.
 
-Um exemplo de **docker-compose.yml**.  
-
-::
+.. code-block:: yaml
 
     version: "2"
     services:
@@ -160,55 +162,55 @@ Um exemplo de **docker-compose.yml**.
     volumes:
       data:
 
-Com o comando 
-.. code-block:: shell
- 
-    docker-compose up -d
+Com o comando:
 
-Irá criar um serviço de haproxy que ira balancear os backends e um zeoserver. 
+.. code-block:: shell
+
+    $ docker-compose up -d
+
+Irá criar um serviço de :term:`HAProxy` que ira balancear os backends e um :term:`ZEO` server.
 
 Inicialização e controle
-==========================
+========================
 
-A configuração presente no arquivo **development.cfg** utiliza apenas uma
-instância -- sem configurações de :term:`ZEO` -- e ela, ao ser iniciada, ouvirá na
-porta **8080** da sua máquina local.
+A configuração presente no arquivo **development.cfg** utiliza apenas uma instância -- sem configurações de :term:`ZEO` -- e ela, ao ser iniciada, ouvirá na porta **8080** da sua máquina local.
 
 Iniciando em modo *foreground*
-------------------------------------
+------------------------------
 
 Para iniciar a instância em modo *foreground*, execute na linha de comando:
-::
 
-    cd ~/portal.buildout
-    ./bin/instance fg
+.. code-block:: console
 
-O ambiente estará pronto para ser utilizado quando você visualizar a seguinte
-mensagem na sua janela de terminal: **INFO Zope Ready to handle requests**.
+    $ cd ~/portal.buildout
+    $ bin/instance fg
 
-.. note :: Esta mensagem, será precedida pela data e hora em que o ambiente
-           ficou ativo, ex: **2013-05-22 11:38:39 INFO Zope Ready to handle
-           requests**
+O ambiente estará pronto para ser utilizado quando você visualizar a seguinte mensagem na sua janela de terminal:
+**INFO Zope Ready to handle requests**.
+
+.. note::
+    Esta mensagem, será precedida pela data e hora em que o ambiente ficou ativo,
+    ex: **2013-05-22 11:38:39 INFO Zope Ready to handle requests**
 
 Se você fechar a janela do terminal, o processo não mais estará ativo.
 
-
 Iniciando em modo serviço (daemon)
-------------------------------------
+----------------------------------
 
-Caso você deseje iniciar a instância e mantê-la ativa mesmo depois de fechar
-a janela de terminal, execute os seguintes comandos
-::
+Caso você deseje iniciar a instância e mantê-la ativa mesmo depois de fechar a janela de terminal,
+execute os seguintes comandos:
 
-    cd ~/portal.buildout
-    ./bin/instance start
+.. code-block:: console
+
+    $ cd ~/portal.buildout
+    $ bin/instance start
 
 Este comando retornará uma mensagem como **daemon process started, pid=32819**,
-porém isto não significa que o ambiente está pronto. Para validar se o ambiente
-está pronto, utilize o comando :command:`tail` para listar as últimas linhas do log
-::
+porém isto não significa que o ambiente está pronto.
+Para validar se o ambiente está pronto, utilize o comando :command:`tail` para listar as últimas linhas do log:
 
-    tail -f var/log/instance.log
+.. code-block:: console
+
+    $ tail -f var/log/instance.log
 
 Se você fechar a janela do terminal, o processo continuará ativo.
-

@@ -9,9 +9,9 @@ Instalação
 
 A instalação do nginx em ambientes Debian/Ubuntu é muito simples:
 
-::
+.. code-block:: console
 
-    sudo apt-get install nginx
+    $ sudo apt install -y nginx
 
 Configuração básica
 -------------------
@@ -32,10 +32,10 @@ A configuração básica mais simples e a seguinte:
 Habilitar compressão
 --------------------
 
-O módulo `ngx_http_gzip_module`_ do nginx é um filtro que comprime as respostas usando o método ``gzip``.
+O módulo `ngx_http_gzip_module <http://nginx.org/en/docs/http/ngx_http_gzip_module.html>`_ do nginx é um filtro que comprime as respostas usando o método ``gzip``.
 Isso ajuda a reduzir a quantidade de informação transmitida entre e servidor e os clientes.
 
-Para habilitar a compressão usamos as seguintes diretivas: 
+Para habilitar a compressão usamos as seguintes diretivas:
 
 ::
 
@@ -47,8 +47,6 @@ Para habilitar a compressão usamos as seguintes diretivas:
     }
 
 A diretiva ``gzip_disable`` se usa para inabilitar a compressão caso o usuário final esteja usando uma versão antiga do IE.
-
-.. _`ngx_http_gzip_module`: http://nginx.org/en/docs/http/ngx_http_gzip_module.html
 
 Endereço canónico
 -----------------
@@ -64,7 +62,7 @@ Endereço canónico
 Balanceador de carga
 --------------------
 
-O módulo `ngx_http_upstream_module`_ é usado para definir grupos de servidores que podem ser referenciados pela diretiva ``proxy_pass``.
+O módulo `ngx_http_upstream_module <http://nginx.org/en/docs/http/ngx_http_upstream_module.html>`_ é usado para definir grupos de servidores que podem ser referenciados pela diretiva ``proxy_pass``.
 
 ::
 
@@ -82,12 +80,10 @@ O módulo `ngx_http_upstream_module`_ é usado para definir grupos de servidores
 
 O nginx utiliza por padrão o método round robin para definir o servidor que vai ser utilizado.
 
-.. _`ngx_http_upstream_module`: http://nginx.org/en/docs/http/ngx_http_upstream_module.html
-
 Implementação do suporte SSL
 ----------------------------
 
-O módulo `ngx_http_ssl_module`_ fornece o suporte para o HTTPS.
+O módulo `ngx_http_ssl_module <http://nginx.org/en/docs/http/ngx_http_ssl_module.html>`_ fornece o suporte para o HTTPS.
 Para abilitar o suporte HTTPS precisa duma chave e um certificado SSL.
 
 ::
@@ -117,5 +113,3 @@ Para abilitar o suporte HTTPS precisa duma chave e um certificado SSL.
     }
 
 Caso estiver usando um certificado auto-assinado não precisa da diretiva ``ssl_trusted_certificate``.
-
-.. _`ngx_http_ssl_module`: http://nginx.org/en/docs/http/ngx_http_ssl_module.html
