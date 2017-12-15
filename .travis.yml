@@ -22,6 +22,8 @@ matrix:
   fast_finish: true
 before_install:
 - test $DEVELOPMENT && cp travis-development.cfg buildout.cfg || cp travis-production.cfg buildout.cfg
+# FIXME: I have no idea how and why six==1.11.0 is being installed
+- pip uninstall -y six
 install:
 - pip install -U setuptools==26.1.1
 - python bootstrap.py --buildout-version=2.9.5
