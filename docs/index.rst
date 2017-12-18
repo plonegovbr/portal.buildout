@@ -23,6 +23,7 @@ Conteúdo
    producao
    vm/index
    atualizacao
+   migracao
    boaspraticas
    problemas
    contribuicoes
