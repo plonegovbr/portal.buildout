@@ -21,6 +21,7 @@ Conteúdo
    base
    desenvolvimento
    producao
+   avancada
    vm/index
    atualizacao
    migracao
