@@ -25,8 +25,8 @@ before_install:
 # FIXME: I have no idea how and why six==1.11.0 is being installed
 - pip uninstall -y six
 install:
-- pip install -U setuptools==26.1.1
-- python bootstrap.py --buildout-version=2.9.5
+- pip install -U setuptools==36.6.1
+- python bootstrap.py
 - bin/buildout annotate
 - bin/buildout
 # O release 1.1.5.1 veio com um erro e não vinha com os eggs do brasil.gov.portal.
