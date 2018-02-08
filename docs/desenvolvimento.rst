@@ -28,22 +28,6 @@ Execute:
 
 .. code-block:: console
 
-    $ virtualenv --version
-
-Se a versão for menor que 1.10 (por exemplo na distribuição LTS do Ubuntu 12.04),
-você precisa executar o :command:`virtualenv` da seguinte forma:
-
-.. code-block:: console
-
-    $ cd ~/portal.buildout
-    $ virtualenv --setuptools py27
-    $ source py27/bin/activate
-
-Se for maior ou igual a 1.10,
-o comando :command:`virtualenv` não necessita do parâmetro *--setuptools* como indicado acima:
-
-.. code-block:: console
-
     $ cd ~/portal.buildout
     $ virtualenv py27
     $ source py27/bin/activate
@@ -79,7 +63,8 @@ E finalmente executa-se o :command:`buildout` com as configurações para ambien
 
 .. code-block:: console
 
-    $ python bootstrap.py --setuptools-version=26.1.1 --buildout-version=2.9.5
+    $ pip install -U setuptools==36.6.1
+    $ python bootstrap.py
     $ bin/buildout
 
 .. warning::
