@@ -88,13 +88,11 @@ que estende o **production.cfg** para definir variáveis deste ambiente:
 
     [hosts]
     supervisor = 127.0.0.1
-    haproxy = 0.0.0.0
     instance = 127.0.0.1
     zeoserver = 127.0.0.1
 
     [ports]
     supervisor = 9001
-    haproxy = 8000
     instance = 8080
     zeoserver = 8100
 
@@ -166,7 +164,6 @@ Que deverá produzir um resultado semelhante ao exibido a seguir:
 .. code-block:: console
 
     zeo                              RUNNING    pid 24546, uptime 20 days, 19:08:25
-    haproxy                          RUNNING    pid 34254, uptime 20 days, 19:08:25
     instance1                        RUNNING    pid 18731, uptime 19 days, 7:01:22
     instance2                        RUNNING    pid 18731, uptime 19 days, 7:01:22
 
