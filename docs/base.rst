@@ -50,6 +50,13 @@ Pacotes do sistema
 
 Primeiramente atualizar os pacotes existentes e depois instalar os pacotes base.
 
+No Ubuntu 18.04 LTS:
+
+.. code-block:: console
+
+    $ sudo apt update && sudo apt upgrade -y
+    $ sudo apt install -y build-essential libssl-dev libxml2-dev libxslt1-dev libbz2-dev zlib1g-dev python-setuptools python-dev python-virtualenv libjpeg62-dev libreadline-gplv2-dev python-pil wv poppler-utils git
+
 No Ubuntu 16.04 LTS:
 
 .. code-block:: console
