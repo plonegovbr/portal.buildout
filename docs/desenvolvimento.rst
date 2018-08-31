@@ -152,13 +152,47 @@ execute os seguintes comandos:
 
     $ cd ~/portal.buildout
     $ bin/instance start
+    .
+    daemon process started, pid=3834
 
-Este comando retornará uma mensagem como **daemon process started, pid=32819**,
-porém isto não significa que o ambiente está pronto.
+Porém isto não significa que o ambiente está pronto.
 Para validar se o ambiente está pronto, utilize o comando :command:`tail` para listar as últimas linhas do log:
 
 .. code-block:: console
 
     $ tail -f var/log/instance.log
+    ...
+    2018-08-31T12:13:30 INFO Zope Ready to handle requests
 
 Se você fechar a janela do terminal, o processo continuará ativo.
+
+Rodando o buildout de uma tag antiga de um pacote
+=================================================
+
+Para atender ao relato de `ter vários jobs de integração contínua em pacotes do IDG <https://github.com/plonegovbr/portalpadrao.release/issues/11>`_,
+no fim da seção extends do buildout.cfg de todos os pacotes temos a seguinte linha:
+
+.. code-block:: cfg
+
+    https://raw.githubusercontent.com/plonegovbr/portal.buildout/master/buildout.d/versions.cfg
+
+Hoje esse arquivo contém sempre as versões pinadas de um release a ser lançado (``master``).
+Por esse motivo, quando é feito o checkout de uma tag mais antiga provavelmente você não conseguirá rodar o buildout.
+Dessa forma, após fazer o checkout de uma tag antiga, recomendamos que adicione, na última linha do extends, o arquivo de versões do IDG compatível com aquela tag, presente no repositório `portalpadrao.release <https://github.com/plonegovbr/portalpadrao.release>`_.
+
+Exemplo: você clonou o repositório do brasil.gov.portal na sua máquina, e deu checkout na tag 1.0.5.
+Ao editar o buildout.cfg, ficaria dessa forma, já com a última linha adicionada:
+
+.. code-block:: cfg
+
+    extends =
+        https://raw.github.com/collective/buildout.plonetest/master/test-4.3.x.cfg
+        https://raw.github.com/collective/buildout.plonetest/master/qa.cfg
+        http://downloads.plone.org.br/release/1.0.4/versions.cfg
+        https://raw.githubusercontent.com/plonegovbr/portal.buildout/master/buildout.d/versions.cfg
+        https://raw.githubusercontent.com/plone/plone.app.robotframework/master/versions.cfg
+        https://raw.githubusercontent.com/plonegovbr/portalpadrao.release/master/1.0.5/versions.cfg
+
+Para saber qual arquivo de versões é compatível, no caso do brasil.gov.portal, é simples pois é a mesma versão (no máximo um bug fix, por exemplo, brasil.gov.portal é 1.1.3 e o arquivo de versão é 1.1.3.1).
+
+Para os demais pacotes, recomendamos comparar a data da tag do pacote e a data nos changelog entre uma versão e outra para adivinhar a versão compatível.
