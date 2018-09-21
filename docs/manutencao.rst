@@ -66,7 +66,7 @@ Um novo item chamado "Gerenciar revisões" será disponibilizado.
 
 O configlet tem duas telas: "Configurações" e "Listar históricos".
 
-.. info::
+.. note::
     O processo de gerenciamento de versões pode ser demorado em dependência do tamanho do banco de dados.
     Acesse o configlet diretamente na porta de instância de Plone sem passar por servidores intermediários que possam abortar as requisições devido a timeouts.
 
@@ -77,10 +77,10 @@ após alguns minutos as estadísticas estarão disponíveis
 Ao selecionar "Listar históricos" você verá uma tabela com o histórico de todas as versões do conteúdo no site.
 Ordene por tamanho para localizar conteúdo que poderia estar ocasionando problemas.
 
-.. info::
+.. note::
     Versões do IDG anteriores à 1.2 apresentavam um bug que ocasionava a criação de milhões de blobs vazios no file system do ZEO Server quando o versionamento era utilizado (ver `collective.cover#532 <https://github.com/collective/collective.cover/issues/532>`_).
 
-.. info::
+.. note::
     Versões do IDG anteriores à 1.5.1 apresentavam um bug que ocasionava o crescimento exponencial dos objetos e do banco de dados quando o versionamento era utilizado (ver `collective.cover#765 <https://github.com/collective/collective.cover/issues/765>`_).
 
 .. warning::
