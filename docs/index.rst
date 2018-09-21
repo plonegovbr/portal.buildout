@@ -22,6 +22,7 @@ Conteúdo
    desenvolvimento
    producao
    avancada
+   manutencao
    vm/index
    atualizacao
    migracao
