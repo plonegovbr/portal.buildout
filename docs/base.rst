@@ -7,13 +7,13 @@ Pré-Requisitos
 
 Para ambientes de desenvolvimento sugerimos:
 
-* Sistema Operacional: Debian 9.0 / Ubuntu 16.04 LTS
-* Memória Mínima: 1GB
+* Sistema Operacional: Debian 9.0 / Ubuntu 18.04 LTS
+* Memória Mínima: 2GB
 
 Para ambientes de produção sugerimos:
 
-* Sistema Operacional: Ubuntu 16.04 LTS
-* Memória Mínima: 2GB
+* Sistema Operacional: Ubuntu 18.04 LTS
+* Memória Mínima: 4GB
 
 Preparação do ambiente
 ======================
