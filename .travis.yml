@@ -41,13 +41,13 @@ before_script:
 - sh -e /etc/init.d/xvfb start
 script:
 # FIXME: we have isolation issues running tests
-- bin/test -s brasil.gov.agenda
-- bin/test -s brasil.gov.barra
-- bin/test -s brasil.gov.portal
-- bin/test -s brasil.gov.portlets
-- bin/test -s brasil.gov.temas
-- bin/test -s brasil.gov.tiles
-- bin/test -s brasil.gov.vcge
+- bin/test -s brasil.gov.agenda &&
+  bin/test -s brasil.gov.barra &&
+  bin/test -s brasil.gov.portal &&
+  bin/test -s brasil.gov.portlets &&
+  bin/test -s brasil.gov.temas &&
+  bin/test -s brasil.gov.tiles &&
+  bin/test -s brasil.gov.vcge
 after_failure:
 - grep brasil.gov bin/test
 notifications:
