@@ -41,7 +41,6 @@ Inicialmente é feito o clone deste *buildout*:
 
     $ cd ~
     $ git clone https://github.com/plonegovbr/portal.buildout.git
-    $ cd portal.buildout
 
 É recomendado que se utilize uma versão estável: portal.buildout possui releases correspondentes às versões de ``brasil.gov.portal`` representados como tags no `repositório <https://github.com/plonegovbr/portal.buildout/releases>`_.
 Recomendamos que se utilize sempre a última tag disponibilizada.
