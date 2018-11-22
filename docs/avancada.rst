@@ -90,6 +90,9 @@ o Zope utiliza por padrão o banco de dados ZODB para armazenar objetos Python s
 O ZODB é um ponto de falha único em um sistema formado por várias instâncias de Zope rodando em modo ZEO client e uma instância de Zope rodando em modo ZEO server.
 Para resolver este problema existem duas soluções: ZODB Replicated Storage (`ZRS <https://github.com/zc/zrs>`_) e `RelStorage <http://relstorage.readthedocs.io/>`_.
 
+ZRS
+---
+
 O `ZRS`_ é um mecanismo de replicação entre um banco de dados primário e um ou vários bancos de dados secundários.
 A replicação é melhor que os backups pois ela garante que todos os bancos de dados vão se encontrar o tempo tudo sincronizados.
 Em caso de falha, basta reconfigurar um banco de dados secundário como primário.
@@ -117,6 +120,7 @@ No ZEO slave devemos usar como mínimo as seguintes diretivas:
     recipe = plone.recipe.zeoserver[zrs]
     zeo-address = 8100
     replicate-from = 10.0.0.1:5000
+    read-only = true
 
 Esses endereços devem também ser informados nas instâncias:
 
@@ -131,8 +135,11 @@ Esses endereços devem também ser informados nas instâncias:
 
 A diretiva ``zeo-address`` lista os endereços e portas de todos os servidores ZEO.
 A diretiva ``zeo-client-read-only-fallback`` indica que,
-em caso de falha no ZEO master,
-a instância pode tentar se conetar aos ZEO slaves em modo read-only.
+caso de falha no ZEO server master,
+a instância pode tentar se conetar ao ZEO server slave em modo read-only.
+
+RelStorage
+----------
 
 O RelStorage é uma implementação de storage da ZODB que permite armazenar os pickles num banco de dados relacional.
 O RelStorage suporta PostgreSQL, MySQL e Oracle.
