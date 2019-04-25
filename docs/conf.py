@@ -7,10 +7,10 @@ source_encoding = 'utf-8'
 master_doc = 'index'
 
 project = u'Portal Padrão'
-copyright = u'2014, PloneGov.BR'
+copyright = u'2017, PloneGov.BR'
 
-version = '20140420'
-release = '20140420.02'
+version = '20170112'
+release = '20170112.01'
 
 language = 'pt_BR'
 
