@@ -17,4 +17,4 @@ http:
     timeout: 5000
     body:
     - e-Government Digital Identity Plone Portal
-- Create new Portal
+    - Create new Portal

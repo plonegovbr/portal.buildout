@@ -12,6 +12,10 @@ addons:
 env:
   global:
   - PLONE_CSRF_DISABLED=true
+  # DOCKER_LOGIN
+  - secure: IiDrW4wO5sPO67bDoLniS/fp6HM6CpRHUi5b5rwbzibXjg59n9wIdQDmv7PuJRxRG8TCTS6HvGtbMXE1NQ0WuBIN6rvOUBzX72tAxQBnUbAggp2yA4U6xQrcDVCBqZtgt7CUGcRNbEQKl96YNjQvsuVfMQ02lHGz4j4TduzhZtg=
+  # DOCKER_PASS
+  - secure: Nz00qh28EYnfhT0WM32lYMt0kWkw2JcWeb3sh4ttVn6CnM5+RiN1I++4ZXC2iHD7GIrpvfSVdIie2JNr99LYNyRlGdiJv+eOO9IStGrXH8CRLyw0wzBTOItRz/pm3AYFAF9GDALrDtF3Xb8Nt+XjcfSwpFuj1fsXn4KHJp77I5E=
   matrix:
   # TODO: update https://github.com/plonegovbr/portalpadrao.release/blob/master/README.md
   - DEVELOPMENT=true
@@ -63,3 +67,8 @@ after_failure:
 - grep brasil.gov bin/test
 notifications:
   irc: irc.freenode.org#plonegovbr
+deploy:
+  provider: script
+  script: script/deploy.sh
+  on:
+    tags: true
