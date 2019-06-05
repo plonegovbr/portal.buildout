@@ -20,7 +20,7 @@ services:
     - ZEO_ADDRESS=zeoserver:8100
 
   zeoserver:
-    image: plone
+    image: plonegovbr/plonegovbr
     command: zeoserver
     volumes:
     - data:/data

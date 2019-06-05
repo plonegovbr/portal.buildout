@@ -24,6 +24,9 @@ before_install:
 - test $DEVELOPMENT && cp travis-development.cfg buildout.cfg || cp travis-production.cfg buildout.cfg
 # FIXME: I have no idea how and why six==1.11.0 is being installed
 - pip uninstall -y six
+# For docker image goss tests
+- sudo curl -L https://github.com/aelsabbahy/goss/releases/download/v0.3.5/goss-linux-amd64 -o /usr/local/bin/goss
+- sudo chmod +rx /usr/local/bin/goss
 install:
 - pip install -U setuptools==36.6.1
 - python bootstrap.py
@@ -48,6 +51,14 @@ script:
   bin/test -s brasil.gov.temas &&
   bin/test -s brasil.gov.tiles &&
   bin/test -s brasil.gov.vcge
+# shellcheck faling even with package pinning because of the use of a env (SC2086) (DL3008)
+- docker run --rm -i lukasmartinelli/hadolint /bin/hadolint --ignore
+  DL3008 --ignore SC2086 - < docker/Dockerfile
+# Building docker image for goss tests
+- docker build --build-arg PLONEGOVBR_VERSION=$(cat docker/latest) -t plonegovbr/plonegovbr:test docker
+- docker run -d -p 8080:8080 --name plonegovbr plonegovbr/plonegovbr:test
+- sudo goss validate --retry-timeout 180s --sleep 2s
+- docker rm -f plonegovbr
 after_failure:
 - grep brasil.gov bin/test
 notifications:

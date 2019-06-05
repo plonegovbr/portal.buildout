@@ -1,0 +1,20 @@
+command:
+  docker logs plonegovbr:
+    exit-status: 0
+    stdout:
+    - daemon process started, pid
+    - 'Hostname: 0.0.0.0'
+    - 'Port: 8080'
+    - Application running on pid
+    stderr: []
+    timeout: 10000
+http:
+  http://localhost:8080:
+    title: Check for Welcome page
+    status: 200
+    allow-insecure: true
+    no-follow-redirects: false
+    timeout: 5000
+    body:
+    - e-Government Digital Identity Plone Portal
+- Create new Portal
