@@ -63,7 +63,7 @@ E finalmente executa-se o :command:`buildout` com as configurações para ambien
 
 .. code-block:: console
 
-    $ pip install -U setuptools==36.6.1
+    $ pip install -U setuptools==41.6.0
     $ python bootstrap.py
     $ bin/buildout
 
