@@ -27,7 +27,7 @@ before_install:
 # FIXME: I have no idea how and why six==1.11.0 is being installed
 - pip uninstall -y six
 install:
-- pip install -U setuptools==36.6.1
+- pip install -U setuptools==41.6.0
 - python bootstrap.py
 - bin/buildout annotate
 - bin/buildout
