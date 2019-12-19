@@ -24,8 +24,8 @@ matrix:
 before_install:
 - test $DEVELOPMENT && cp travis-development.cfg buildout.cfg || cp travis-production.cfg buildout.cfg
 install:
-- pip install -U setuptools==26.1.1
-- python bootstrap.py --buildout-version=2.9.5
+- pip install -U setuptools==41.6.0
+- python bootstrap.py
 - bin/buildout annotate
 - bin/buildout
 # O release 1.1.5.1 veio com um erro e não vinha com os eggs do brasil.gov.portal.

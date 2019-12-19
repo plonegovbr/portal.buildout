@@ -79,7 +79,7 @@ E finalmente executa-se o :command:`buildout` com as configurações para ambien
 
 .. code-block:: console
 
-    $ python bootstrap.py --setuptools-version=26.1.1 --buildout-version=2.9.5
+    $ python bootstrap.py --setuptools-version=41.6.0 --buildout-version=2.13.2
     $ bin/buildout
 
 .. warning::
