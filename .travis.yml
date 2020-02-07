@@ -24,7 +24,7 @@ matrix:
 before_install:
 - test $DEVELOPMENT && cp travis-development.cfg buildout.cfg || cp travis-production.cfg buildout.cfg
 install:
-- pip install -U setuptools==41.6.0
+- pip install -U setuptools==42.0.2
 - python bootstrap.py
 - bin/buildout annotate
 - bin/buildout
