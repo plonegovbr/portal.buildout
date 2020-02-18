@@ -113,8 +113,7 @@ E finalmente executa-se o :command:`buildout` com as configurações para ambien
 
 .. code-block:: console
 
-    $ pip install -U setuptools==42.6.2
-    $ python bootstrap.py
+    $ pip install -r requirements.txt
     $ bin/buildout
 
 .. warning::

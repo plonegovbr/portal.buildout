@@ -22,21 +22,19 @@ matrix:
   - env: PRODUCTION=true
   fast_finish: true
 before_install:
-- test $DEVELOPMENT && cp travis-development.cfg buildout.cfg || cp travis-production.cfg buildout.cfg
-# FIXME: I have no idea how and why six==1.11.0 is being installed
-- pip uninstall -y six
+  - test $DEVELOPMENT && cp travis-development.cfg buildout.cfg || cp travis-production.cfg buildout.cfg
 install:
-- pip install -U setuptools==42.0.2
-- python bootstrap.py
-- bin/buildout annotate
-- bin/buildout
-# O release 1.1.5.1 veio com um erro e não vinha com os eggs do brasil.gov.portal.
-# Dessa forma, passamos a testar se o egg foi realmente adicionado no buildout
-# para que esse erro não ocorra novamente.
-# Caso altere a versão do zc.buildout, pode ser que você necessite alterar o
-# arquivo onde procura a string, trocando bin/instance por parts/instance.site.py
-# por exemplo.
-- grep -q 'brasil.gov.portal' bin/instance
+  - virtualenv .
+  - bin/pip install -r requirements.txt
+  - bin/buildout annotate
+  - bin/buildout
+  # O release 1.1.5.1 veio com um erro e não vinha com os eggs do brasil.gov.portal.
+  # Dessa forma, passamos a testar se o egg foi realmente adicionado no buildout
+  # para que esse erro não ocorra novamente.
+  # Caso altere a versão do zc.buildout, pode ser que você necessite alterar o
+  # arquivo onde procura a string, trocando bin/instance por parts/instance.site.py
+  # por exemplo.
+  - grep -q 'brasil.gov.portal' bin/instance
 script:
 # FIXME: we have isolation issues running tests
 - bin/test -s brasil.gov.agenda &&
