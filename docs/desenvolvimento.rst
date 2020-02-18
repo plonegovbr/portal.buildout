@@ -32,9 +32,6 @@ Execute:
     $ virtualenv py27
     $ source py27/bin/activate
 
-Para entender a motivação dessa diferença,
-leia a `documentação <https://github.com/plonegovbr/portal.buildout/issues/41>`_.
-
 .. note::
     Apesar das instruções de instalação de bibliotecas e execução do :command:`virtualenv` sobre o Python da máquina,
     para menor complexidade do procedimento é recomendado o uso de uma nova instalação de Python 2.7,
