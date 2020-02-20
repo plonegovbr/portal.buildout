@@ -16,3 +16,8 @@ src/
 var/
 .python-version
 /.settings/
+/local
+/share/
+/include/
+/lib/
+/pip-selfcheck.json
