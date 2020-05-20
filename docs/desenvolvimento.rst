@@ -184,7 +184,7 @@ Ao editar o buildout.cfg, ficaria dessa forma, já com a última linha adicionad
     extends =
         https://raw.github.com/collective/buildout.plonetest/master/test-4.3.x.cfg
         https://raw.github.com/collective/buildout.plonetest/master/qa.cfg
-        http://downloads.plone.org.br/release/1.0.4/versions.cfg
+        https://raw.githubusercontent.com/plonegovbr/portalpadrao.release/master/1.0.4/versions.cfg
         https://raw.githubusercontent.com/plonegovbr/portal.buildout/master/buildout.d/versions.cfg
         https://raw.githubusercontent.com/plone/plone.app.robotframework/master/versions.cfg
         https://raw.githubusercontent.com/plonegovbr/portalpadrao.release/master/1.0.5/versions.cfg

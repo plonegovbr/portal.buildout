@@ -39,7 +39,7 @@ contendo a seguinte URL no extends do seu arquivo de buildout:
 .. code-block:: ini
 
     extends =
-        http://downloads.plone.org.br/release/1.5/versions.cfg
+        https://raw.githubusercontent.com/plonegovbr/portalpadrao.release/master/1.5/versions.cfg
 
 Verificando em https://github.com/plonegovbr/portalpadrao.release/releases,
 você percebe que há uma versão mais atual (a 1.5.1) e deseja atualizar.
@@ -50,7 +50,7 @@ altere seu arquivo de buildout para:
 .. code-block:: ini
 
     extends =
-        http://downloads.plone.org.br/release/1.5.1/versions.cfg
+        https://raw.githubusercontent.com/plonegovbr/portalpadrao.release/master/1.5/versions.cfg
 
 Rode o *buildout*, suba as a(s) instância(s) e, se aplicável, execute os upgradeSteps.
 Seu portal estará atualizado.
