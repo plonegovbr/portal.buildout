@@ -23,7 +23,6 @@ Conteúdo
    producao
    avancada
    manutencao
-   vm/index
    atualizacao
    migracao
    boaspraticas
