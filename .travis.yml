@@ -20,7 +20,7 @@ matrix:
 before_install:
   - GECKODRIVER_VERSION=0.26.0
   - wget https://github.com/mozilla/geckodriver/releases/download/v$GECKODRIVER_VERSION/geckodriver-v$GECKODRIVER_VERSION-linux64.tar.gz
-  - tar -xzf geckodriver-v$GECKODRIVER_VERSION-linux64.tar.gz -C /usr/bin
+  - sudo tar -xzf geckodriver-v$GECKODRIVER_VERSION-linux64.tar.gz -C /usr/bin
   - firefox -v
   - test $DEVELOPMENT && cp travis-development.cfg buildout.cfg || cp travis-production.cfg buildout.cfg
 install:
